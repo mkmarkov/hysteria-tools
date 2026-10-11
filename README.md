@@ -23,6 +23,3 @@ Anyone with the link can view and edit; changes appear on everyone's screen inst
 python -m http.server 8790 --directory docs
 ```
 Open http://localhost:8790 (uses the same live Firestore data).
-
-## Old version
-`server.py`, `start.bat`, `index.html` and `data/` are the earlier self-hosted version (Python + ngrok). No longer used.
