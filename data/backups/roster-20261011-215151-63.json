@@ -1,0 +1,3526 @@
+{
+ "version": 62,
+ "state": {
+  "players": [
+   {
+    "id": "p1",
+    "name": "Quink",
+    "note": "",
+    "chars": [
+     {
+      "id": "p1-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p1-c2",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p2",
+    "name": "Gatty",
+    "note": "",
+    "chars": [
+     {
+      "id": "p2-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Arms"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p2-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental",
+       "Enhancement"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p2-c3",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p2-c4",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p3",
+    "name": "Sa",
+    "note": "",
+    "chars": [
+     {
+      "id": "p3-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p3-c2",
+      "cls": "Druid",
+      "specs": [
+       "Balance"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p3-c3",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p3-c4",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p4",
+    "name": "Years",
+    "note": "",
+    "chars": [
+     {
+      "id": "p4-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p4-c2",
+      "cls": "Druid",
+      "specs": [
+       "Balance"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p5",
+    "name": "Hotstreak",
+    "note": "",
+    "chars": [
+     {
+      "id": "p5-c1",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p6",
+    "name": "Diaria",
+    "note": "",
+    "chars": [
+     {
+      "id": "p6-c1",
+      "cls": "Mage",
+      "specs": [
+       "Fire"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p6-c2",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p7",
+    "name": "Avothea",
+    "note": "",
+    "chars": [
+     {
+      "id": "p7-c1",
+      "cls": "Priest",
+      "specs": [
+       "Shadow",
+       "Discipline"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p8",
+    "name": "OneMitko",
+    "note": "",
+    "chars": [
+     {
+      "id": "p8-c1",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p8-c2",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p8-c3",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p8-c4",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p8-c5",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p9",
+    "name": "Lollyn",
+    "note": "",
+    "chars": [
+     {
+      "id": "p9-c1",
+      "cls": "Priest",
+      "specs": [
+       "Discipline"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p10",
+    "name": "Paroxy",
+    "note": "",
+    "chars": [
+     {
+      "id": "p10-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (Tank)",
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p10-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p10-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p10-c4",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p11",
+    "name": "Natalita",
+    "note": "",
+    "chars": [
+     {
+      "id": "p11-c1",
+      "cls": "Druid",
+      "specs": [
+       "Balance"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p11-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p12",
+    "name": "Swuiftzor",
+    "note": "",
+    "chars": [
+     {
+      "id": "p12-c1",
+      "cls": "Druid",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p13",
+    "name": "Xyz",
+    "note": "",
+    "chars": [
+     {
+      "id": "p13-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental",
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p13-c2",
+      "cls": "Druid",
+      "specs": [
+       "Balance",
+       "Restoration"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p14",
+    "name": "Weedian",
+    "note": "",
+    "chars": [
+     {
+      "id": "p14-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p15",
+    "name": "Soulstrike",
+    "note": "",
+    "chars": [
+     {
+      "id": "p15-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration",
+       "Elemental",
+       "Enhancement"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p15-c2",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p15-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p16",
+    "name": "Dunk",
+    "note": "",
+    "chars": [
+     {
+      "id": "p16-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p16-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p16-c3",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p16-c4",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p17",
+    "name": "Sponjobi",
+    "note": "",
+    "chars": [
+     {
+      "id": "p17-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p17-c2",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p17-c3",
+      "cls": "Druid",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p18",
+    "name": "Rhytm",
+    "note": "",
+    "chars": [
+     {
+      "id": "p18-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p18-c2",
+      "cls": "Priest",
+      "specs": [
+       "Discipline",
+       "Shadow"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p19",
+    "name": "Deathdealer",
+    "note": "",
+    "chars": [
+     {
+      "id": "p19-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p19-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p20",
+    "name": "Barakobama",
+    "note": "",
+    "chars": [
+     {
+      "id": "p20-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p20-c2",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p21",
+    "name": "BorisRusev",
+    "note": "",
+    "chars": [
+     {
+      "id": "p21-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Beast Mastery"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p22",
+    "name": "Featherdru",
+    "note": "",
+    "chars": [
+     {
+      "id": "p22-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p22-c2",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p22-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p23",
+    "name": "Notariusa",
+    "note": "",
+    "chars": [
+     {
+      "id": "p23-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p24",
+    "name": "Burtreynolds",
+    "note": "",
+    "chars": [
+     {
+      "id": "p24-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p24-c2",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p25",
+    "name": "Kokosis",
+    "note": "",
+    "chars": [
+     {
+      "id": "p25-c1",
+      "cls": "Mage",
+      "specs": [
+       "Fire"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p26",
+    "name": "Brxx",
+    "note": "",
+    "chars": [
+     {
+      "id": "p26-c1",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p26-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p27",
+    "name": "Ronin",
+    "note": "",
+    "chars": [
+     {
+      "id": "p27-c1",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p27-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p27-c3",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p28",
+    "name": "Executioner",
+    "note": "",
+    "chars": [
+     {
+      "id": "p28-c1",
+      "cls": "Priest",
+      "specs": [
+       "Discipline"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p28-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p28-c3",
+      "cls": "Druid",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p28-c4",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p29",
+    "name": "Sasho Ciganina",
+    "note": "",
+    "chars": [
+     {
+      "id": "p29-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)",
+       "Balance",
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p29-c2",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p29-c3",
+      "cls": "Priest",
+      "specs": [
+       "Shadow",
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p30",
+    "name": "RAMBI",
+    "note": "",
+    "chars": [
+     {
+      "id": "p30-c1",
+      "cls": "Druid",
+      "specs": [
+       "Balance"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p30-c2",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p30-c3",
+      "cls": "Priest",
+      "specs": [
+       "Shadow",
+       "Holy"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p31",
+    "name": "Silvergrove",
+    "note": "",
+    "chars": [
+     {
+      "id": "p31-c1",
+      "cls": "Druid",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p31-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p31-c3",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p32",
+    "name": "Meatsalad",
+    "note": "",
+    "chars": [
+     {
+      "id": "p32-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p32-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p32-c3",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p33",
+    "name": "Vosibor",
+    "note": "",
+    "chars": [
+     {
+      "id": "p33-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p33-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p34",
+    "name": "Stambi",
+    "note": "",
+    "chars": [
+     {
+      "id": "p34-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p34-c2",
+      "cls": "Priest",
+      "specs": [
+       "Holy",
+       "Discipline"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p34-c3",
+      "cls": "Druid",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p34-c4",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p35",
+    "name": "NOX.AI",
+    "note": "",
+    "chars": [
+     {
+      "id": "p35-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p35-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p36",
+    "name": "Brigata",
+    "note": "",
+    "chars": [
+     {
+      "id": "p36-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p37",
+    "name": "Xhah",
+    "note": "",
+    "chars": [
+     {
+      "id": "p37-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p37-c2",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p38",
+    "name": "ErrorSystem",
+    "note": "",
+    "chars": [
+     {
+      "id": "p38-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p38-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p38-c3",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p38-c4",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p39",
+    "name": "Ganev",
+    "note": "",
+    "chars": [
+     {
+      "id": "p39-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p39-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p40",
+    "name": "Zangador",
+    "note": "",
+    "chars": [
+     {
+      "id": "p40-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p40-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p41",
+    "name": "Solidsurge",
+    "note": "",
+    "chars": [
+     {
+      "id": "p41-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p42",
+    "name": "Smallbozz",
+    "note": "",
+    "chars": [
+     {
+      "id": "p42-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p42-c2",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p43",
+    "name": "S A D L Y",
+    "note": "",
+    "chars": [
+     {
+      "id": "p43-c1",
+      "cls": "Mage",
+      "specs": [
+       "Fire"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p43-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p43-c3",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p44",
+    "name": "Bongo",
+    "note": "",
+    "chars": [
+     {
+      "id": "p44-c1",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p45",
+    "name": "Supnibba",
+    "note": "",
+    "chars": [
+     {
+      "id": "p45-c1",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p46",
+    "name": "Silvercuck",
+    "note": "",
+    "chars": [
+     {
+      "id": "p46-c1",
+      "cls": "Priest",
+      "specs": [
+       "Discipline"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p46-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p46-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p47",
+    "name": "Grimhowl",
+    "note": "",
+    "chars": [
+     {
+      "id": "p47-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p47-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution",
+       "Protection"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p47-c3",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p48",
+    "name": "Zonco",
+    "note": "",
+    "chars": [
+     {
+      "id": "p48-c1",
+      "cls": "Druid",
+      "specs": [
+       "Balance"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p48-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p48-c3",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental",
+       "Enhancement"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p49",
+    "name": "Joroboro",
+    "note": "",
+    "chars": [
+     {
+      "id": "p49-c1",
+      "cls": "Druid",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p49-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p50",
+    "name": "Davyjones",
+    "note": "",
+    "chars": [
+     {
+      "id": "p50-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental",
+       "Enhancement",
+       "Restoration"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p51",
+    "name": "Elizer",
+    "note": "",
+    "chars": [
+     {
+      "id": "p51-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p51-c2",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p52",
+    "name": "Purified",
+    "note": "",
+    "chars": [
+     {
+      "id": "p52-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p52-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p53",
+    "name": "Dorath",
+    "note": "",
+    "chars": [
+     {
+      "id": "p53-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Protection",
+       "Retribution",
+       "Holy"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p53-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Arms"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p53-c3",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p54",
+    "name": "Djerius",
+    "note": "",
+    "chars": [
+     {
+      "id": "p54-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p54-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement",
+       "Restoration"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p54-c3",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p55",
+    "name": "Bat Nasko",
+    "note": "Marked '?' (tentative) in the Групи sheet",
+    "chars": [
+     {
+      "id": "p55-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p55-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p55-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p56",
+    "name": "Skyleaf",
+    "note": "",
+    "chars": [
+     {
+      "id": "p56-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p56-c2",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p56-c3",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p57",
+    "name": "Megaira",
+    "note": "",
+    "chars": [
+     {
+      "id": "p57-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p57-c2",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p57-c3",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p58",
+    "name": "POPA",
+    "note": "",
+    "chars": [
+     {
+      "id": "p58-c166",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p59",
+    "name": "Ali Aliev",
+    "note": "",
+    "chars": [
+     {
+      "id": "p59-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p60",
+    "name": "Katalina",
+    "note": "",
+    "chars": [
+     {
+      "id": "p60-c1",
+      "cls": "Mage",
+      "specs": [
+       "Fire"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p60-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement",
+       "Restoration"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p60-c3",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p61",
+    "name": "Grisho",
+    "note": "",
+    "chars": [
+     {
+      "id": "p61-c1",
+      "cls": "Priest",
+      "specs": [
+       "Shadow",
+       "Discipline"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p62",
+    "name": "Patriarxa",
+    "note": "",
+    "chars": [
+     {
+      "id": "p62-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p62-c2",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p62-c3",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p63",
+    "name": "Riassiar",
+    "note": "",
+    "chars": [
+     {
+      "id": "p63-c1",
+      "cls": "Druid",
+      "specs": [
+       "Balance",
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p63-c2",
+      "cls": "Priest",
+      "specs": [
+       "Discipline",
+       "Shadow"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p63-c3",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p64",
+    "name": "10cho",
+    "note": "",
+    "chars": [
+     {
+      "id": "p64-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental",
+       "Enhancement"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p64-c2",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p64-c3",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p65",
+    "name": "Bmwmoni",
+    "note": "",
+    "chars": [
+     {
+      "id": "p65-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p65-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Arms"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p65-c3",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p66",
+    "name": "Elonna",
+    "note": "",
+    "chars": [
+     {
+      "id": "p66-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p66-c2",
+      "cls": "Priest",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p67",
+    "name": "Kitka",
+    "note": "",
+    "chars": [
+     {
+      "id": "p67-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p67-c2",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p68",
+    "name": "Laketbrada",
+    "note": "",
+    "chars": [
+     {
+      "id": "p68-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p69",
+    "name": "Korleone",
+    "note": "",
+    "chars": [
+     {
+      "id": "p69-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p70",
+    "name": "Drilla",
+    "note": "",
+    "chars": [
+     {
+      "id": "p70-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p70-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p71",
+    "name": "Eskada",
+    "note": "",
+    "chars": [
+     {
+      "id": "p71-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p72",
+    "name": "Slash",
+    "note": "",
+    "chars": [
+     {
+      "id": "p72-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p72-c2",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p73",
+    "name": "Mutresa",
+    "note": "",
+    "chars": [
+     {
+      "id": "p73-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p73-c2",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p73-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p74",
+    "name": "Dupedatieqko",
+    "note": "",
+    "chars": [
+     {
+      "id": "p74-c1",
+      "cls": "Mage",
+      "specs": [
+       "Fire"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p74-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p76",
+    "name": "Stormlesh",
+    "note": "",
+    "chars": [
+     {
+      "id": "p76-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)",
+       "Balance"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p76-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Protection",
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p77",
+    "name": "Nightfate",
+    "note": "",
+    "chars": [
+     {
+      "id": "p77-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p77-c2",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p78",
+    "name": "Hawerk",
+    "note": "",
+    "chars": [
+     {
+      "id": "p78-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement",
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p78-c2",
+      "cls": "Priest",
+      "specs": [
+       "Discipline",
+       "Shadow"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p78-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Protection",
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p79",
+    "name": "Kosio",
+    "note": "",
+    "chars": [
+     {
+      "id": "p79-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration",
+       "Elemental"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p80",
+    "name": "Holyshealton",
+    "note": "",
+    "chars": [
+     {
+      "id": "p80-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p80-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p80-c3",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p80-c4",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p81",
+    "name": "Kratos",
+    "note": "",
+    "chars": [
+     {
+      "id": "p81-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p82",
+    "name": "Tormblade",
+    "note": "",
+    "chars": [
+     {
+      "id": "p82-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p82-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)",
+       "Restoration"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p83",
+    "name": "Bgwinner",
+    "note": "",
+    "chars": [
+     {
+      "id": "p83-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p83-c2",
+      "cls": "Druid",
+      "specs": [
+       "Balance",
+       "Restoration"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p84",
+    "name": "Lana",
+    "note": "",
+    "chars": [
+     {
+      "id": "p84-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p84-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p85",
+    "name": "Gruev",
+    "note": "",
+    "chars": [
+     {
+      "id": "p85-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p85-c2",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p86",
+    "name": "Stanko",
+    "note": "",
+    "chars": [
+     {
+      "id": "p86-c1",
+      "cls": "Mage",
+      "specs": [
+       "Fire"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p87",
+    "name": "Disturbed",
+    "note": "",
+    "chars": [
+     {
+      "id": "p87-c1",
+      "cls": "Priest",
+      "specs": [
+       "Shadow"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p87-c2",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p88",
+    "name": "Malakmage",
+    "note": "",
+    "chars": [
+     {
+      "id": "p88-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (Tank)",
+       "Feral (DPS)",
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p88-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution",
+       "Protection",
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p89",
+    "name": "Angramar",
+    "note": "",
+    "chars": [
+     {
+      "id": "p89-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p89-c2",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p90",
+    "name": "Bigkiss",
+    "note": "",
+    "chars": [
+     {
+      "id": "p90-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p90-c2",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p91",
+    "name": "Monkata",
+    "note": "",
+    "chars": [
+     {
+      "id": "p91-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p92",
+    "name": "Impunity",
+    "note": "",
+    "chars": [
+     {
+      "id": "p92-c1",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p92-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p92-c3",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p93",
+    "name": "Gendov",
+    "note": "",
+    "chars": [
+     {
+      "id": "p93-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p93-c2",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p94",
+    "name": "Mashonata",
+    "note": "",
+    "chars": [
+     {
+      "id": "p94-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p95",
+    "name": "Refundme",
+    "note": "",
+    "chars": [
+     {
+      "id": "p95-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection",
+       "Fury"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p95-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution",
+       "Holy"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p95-c3",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p96",
+    "name": "Kkrushed",
+    "note": "",
+    "chars": [
+     {
+      "id": "p96-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p97",
+    "name": "Botev",
+    "note": "",
+    "chars": [
+     {
+      "id": "p97-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p98",
+    "name": "Dreamshadows",
+    "note": "",
+    "chars": [
+     {
+      "id": "p98-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p98-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental",
+       "Restoration"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p98-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p98-c4",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p98-c5",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p99",
+    "name": "Benetar",
+    "note": "",
+    "chars": [
+     {
+      "id": "p99-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental",
+       "Restoration"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p100",
+    "name": "Intuixx",
+    "note": "",
+    "chars": [
+     {
+      "id": "p100-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p100-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p101",
+    "name": "Debelia",
+    "note": "",
+    "chars": [
+     {
+      "id": "p101-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p101-c2",
+      "cls": "Priest",
+      "specs": [
+       "Discipline"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p102",
+    "name": "Afterlife",
+    "note": "",
+    "chars": [
+     {
+      "id": "p102-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p102-c2",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p103",
+    "name": "Vanz",
+    "note": "",
+    "chars": [
+     {
+      "id": "p103-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p103-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p103-c3",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p104",
+    "name": "Ineoo",
+    "note": "",
+    "chars": [
+     {
+      "id": "p104-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p104-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p105",
+    "name": "Exize",
+    "note": "",
+    "chars": [
+     {
+      "id": "p105-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p105-c2",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p106",
+    "name": "Bojkov",
+    "note": "",
+    "chars": [
+     {
+      "id": "p106-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p107",
+    "name": "Reiju",
+    "note": "",
+    "chars": [
+     {
+      "id": "p107-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p108",
+    "name": "Bigshatz",
+    "note": "",
+    "chars": [
+     {
+      "id": "p108-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p109",
+    "name": "Maxy",
+    "note": "",
+    "chars": [
+     {
+      "id": "p109-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Restoration"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p109-c2",
+      "cls": "Druid",
+      "specs": [
+       "Balance"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p109-c3",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p110",
+    "name": "Drebniq",
+    "note": "",
+    "chars": [
+     {
+      "id": "p110-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p110-c2",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p111",
+    "name": "Sandokann",
+    "note": "",
+    "chars": [
+     {
+      "id": "p111-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p111-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p112",
+    "name": "Remonia",
+    "note": "",
+    "chars": [
+     {
+      "id": "p112-c1",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p112-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p113",
+    "name": "Aion's wife",
+    "note": "",
+    "chars": [
+     {
+      "id": "p113-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p114",
+    "name": "Georgio",
+    "note": "",
+    "chars": [
+     {
+      "id": "p114-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p115",
+    "name": "Aion",
+    "note": "",
+    "chars": [
+     {
+      "id": "p115-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p116",
+    "name": "Bazoo",
+    "note": "",
+    "chars": [
+     {
+      "id": "p116-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p116-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p117",
+    "name": "Arex",
+    "note": "",
+    "chars": [
+     {
+      "id": "p117-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p118",
+    "name": "DTW",
+    "note": "",
+    "chars": [
+     {
+      "id": "p118-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p119",
+    "name": "Ncastle",
+    "note": "",
+    "chars": [
+     {
+      "id": "p119-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p119-c2",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p119-c3",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p120",
+    "name": "Psychorealm",
+    "note": "",
+    "chars": [
+     {
+      "id": "p120-c1",
+      "cls": "Shaman",
+      "specs": [
+       "Elemental"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p120-c2",
+      "cls": "Priest",
+      "specs": [
+       "Discipline",
+       "Shadow"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p120-c3",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p121",
+    "name": "Shibitri",
+    "note": "",
+    "chars": [
+     {
+      "id": "p121-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p122",
+    "name": "Blazin",
+    "note": "",
+    "chars": [
+     {
+      "id": "p122-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p123",
+    "name": "Skuki",
+    "note": "",
+    "chars": [
+     {
+      "id": "p123-c1",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p124",
+    "name": "MasterMarti",
+    "note": "",
+    "chars": [
+     {
+      "id": "p124-c1",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)",
+       "Restoration"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p125",
+    "name": "Valthos",
+    "note": "",
+    "chars": [
+     {
+      "id": "p125-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p125-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p125-c3",
+      "cls": "Warrior",
+      "specs": [
+       "Fury"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p126",
+    "name": "Xisoka",
+    "note": "",
+    "chars": [
+     {
+      "id": "p126-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p126-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p126-c3",
+      "cls": "Warlock",
+      "specs": [
+       "Affliction"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p127",
+    "name": "Achilia",
+    "note": "",
+    "chars": [
+     {
+      "id": "p127-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p127-c2",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p128",
+    "name": "Sunflower",
+    "note": "",
+    "chars": [
+     {
+      "id": "p128-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p129",
+    "name": "Reynales",
+    "note": "",
+    "chars": [
+     {
+      "id": "p129-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p130",
+    "name": "Xormonaliza",
+    "note": "",
+    "chars": [
+     {
+      "id": "p130-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     },
+     {
+      "id": "p130-c2",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p131",
+    "name": "Bachkatora",
+    "note": "",
+    "chars": [
+     {
+      "id": "p131-c1",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p132",
+    "name": "Xenoverse",
+    "note": "",
+    "chars": [
+     {
+      "id": "p132-c1",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p133",
+    "name": "Shadowless",
+    "note": "",
+    "chars": [
+     {
+      "id": "p133-c1",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "alt"
+     },
+     {
+      "id": "p133-c2",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "alt"
+     }
+    ]
+   },
+   {
+    "id": "p159",
+    "name": "Cvetelina",
+    "note": "",
+    "chars": [
+     {
+      "id": "p159-c160",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p163",
+    "name": "Vtz",
+    "note": "",
+    "chars": [
+     {
+      "id": "p163-c164",
+      "cls": "Warrior",
+      "specs": [
+       "Protection"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p168",
+    "name": "Qrath",
+    "note": "",
+    "chars": [
+     {
+      "id": "p168-c169",
+      "cls": "Mage",
+      "specs": [
+       "Arcane"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p171",
+    "name": "Jaden",
+    "note": "",
+    "chars": [
+     {
+      "id": "p171-c172",
+      "cls": "Shaman",
+      "specs": [
+       "Enhancement"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p173",
+    "name": "Merco",
+    "note": "",
+    "chars": [
+     {
+      "id": "p173-c174",
+      "cls": "Paladin",
+      "specs": [
+       "Holy"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p176",
+    "name": "Mysterybox",
+    "note": "",
+    "chars": [
+     {
+      "id": "p176-c177",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p179",
+    "name": "Ctr",
+    "note": "",
+    "chars": [
+     {
+      "id": "p179-c180",
+      "cls": "Paladin",
+      "specs": [
+       "Retribution"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p182",
+    "name": "Nightstalker",
+    "note": "",
+    "chars": [
+     {
+      "id": "p182-c183",
+      "cls": "Rogue",
+      "specs": [
+       "Combat"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p185",
+    "name": "Kilgirn",
+    "note": "",
+    "chars": [
+     {
+      "id": "p185-c186",
+      "cls": "Druid",
+      "specs": [
+       "Feral (DPS)",
+       "Balance"
+      ],
+      "kind": "main"
+     }
+    ]
+   },
+   {
+    "id": "p188",
+    "name": "Rngsucks",
+    "note": "",
+    "chars": [
+     {
+      "id": "p188-c189",
+      "cls": "Hunter",
+      "specs": [
+       "Marksmanship"
+      ],
+      "kind": "main"
+     }
+    ]
+   }
+  ],
+  "groups": [
+   {
+    "id": "g1",
+    "name": "1FR GRP",
+    "size": 40,
+    "leader": null,
+    "slots": [
+     {
+      "id": "s135",
+      "pid": "p97",
+      "cid": "p97-c1",
+      "spec": "Affliction"
+     },
+     {
+      "id": "s136",
+      "pid": "p67",
+      "cid": "p67-c1",
+      "spec": "Protection"
+     },
+     {
+      "id": "s137",
+      "pid": "p47",
+      "cid": "p47-c1",
+      "spec": "Feral (DPS)"
+     },
+     {
+      "id": "s138",
+      "pid": "p31",
+      "cid": "p31-c1",
+      "spec": "Restoration"
+     },
+     {
+      "id": "s140",
+      "pid": "p26",
+      "cid": "p26-c1",
+      "spec": "Shadow"
+     },
+     {
+      "id": "s156",
+      "pid": "p96",
+      "cid": "p96-c1",
+      "spec": "Fury"
+     }
+    ]
+   },
+   {
+    "id": "g2",
+    "name": "ILIQ GRP",
+    "size": 40,
+    "leader": null,
+    "slots": [
+     {
+      "id": "s141",
+      "pid": "p50",
+      "cid": "p50-c1",
+      "spec": "Enhancement"
+     },
+     {
+      "id": "s142",
+      "pid": "p22",
+      "cid": "p22-c1",
+      "spec": "Protection"
+     },
+     {
+      "id": "s143",
+      "pid": "p62",
+      "cid": "p62-c1",
+      "spec": "Feral (DPS)"
+     },
+     {
+      "id": "s144",
+      "pid": "p82",
+      "cid": "p82-c1",
+      "spec": "Combat"
+     },
+     {
+      "id": "s145",
+      "pid": "p106",
+      "cid": "p106-c1",
+      "spec": "Affliction"
+     },
+     {
+      "id": "s146",
+      "pid": "p4",
+      "cid": "p4-c1",
+      "spec": "Affliction"
+     },
+     {
+      "id": "s148",
+      "pid": "p63",
+      "cid": "p63-c1",
+      "spec": "Balance"
+     },
+     {
+      "id": "s150",
+      "pid": "p54",
+      "cid": "p54-c1",
+      "spec": "Holy"
+     },
+     {
+      "id": "s157",
+      "pid": "p55",
+      "cid": "p55-c3",
+      "spec": "Retribution"
+     },
+     {
+      "id": "s158",
+      "pid": "p30",
+      "cid": "p30-c3",
+      "spec": "Shadow"
+     },
+     {
+      "id": "s161",
+      "pid": "p98",
+      "cid": "p98-c2",
+      "spec": "Elemental"
+     },
+     {
+      "id": "s167",
+      "pid": "p58",
+      "cid": "p58-c166",
+      "spec": "Holy"
+     }
+    ]
+   },
+   {
+    "id": "g3",
+    "name": "NOXI GRP",
+    "size": 40,
+    "leader": "p35",
+    "slots": [
+     {
+      "id": "s153",
+      "pid": "p35",
+      "cid": "p35-c1",
+      "spec": "Protection"
+     },
+     {
+      "id": "s154",
+      "pid": "p101",
+      "cid": "p101-c1",
+      "spec": "Restoration"
+     },
+     {
+      "id": "s155",
+      "pid": "p29",
+      "cid": "p29-c1",
+      "spec": "Feral (DPS)"
+     },
+     {
+      "id": "s162",
+      "pid": "p159",
+      "cid": "p159-c160",
+      "spec": "Arcane"
+     },
+     {
+      "id": "s165",
+      "pid": "p163",
+      "cid": "p163-c164",
+      "spec": "Protection"
+     },
+     {
+      "id": "s170",
+      "pid": "p168",
+      "cid": "p168-c169",
+      "spec": "Arcane"
+     },
+     {
+      "id": "s175",
+      "pid": "p173",
+      "cid": "p173-c174",
+      "spec": "Holy"
+     },
+     {
+      "id": "s178",
+      "pid": "p176",
+      "cid": "p176-c177",
+      "spec": "Marksmanship"
+     },
+     {
+      "id": "s181",
+      "pid": "p179",
+      "cid": "p179-c180",
+      "spec": "Retribution"
+     },
+     {
+      "id": "s184",
+      "pid": "p182",
+      "cid": "p182-c183",
+      "spec": "Combat"
+     },
+     {
+      "id": "s187",
+      "pid": "p185",
+      "cid": "p185-c186",
+      "spec": "Feral (DPS)"
+     }
+    ]
+   }
+  ],
+  "nextId": 189
+ }
+}

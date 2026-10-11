@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hysteria Raid Roster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2b303b; --text:#e6e6e6; --muted:#8b93a3;
+  --gold:#e8c46a; --danger:#e5605b; --ok:#5fbf77; --accent:#6aa6ff;
+  --tank:#7aa7ff; --heal:#6fd38a; --dps:#ef7b6b;
+  --Warrior:#C69B6D; --Warlock:#8788EE; --Mage:#3FC7EB; --Priest:#FFFFFF; --Druid:#FF7C0A;
+  --Shaman:#0070DD; --Paladin:#F48CBA; --Rogue:#FFF468; --Hunter:#AAD372;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 10px}
+button:hover{border-color:#4a5262}
+button.primary{background:#2a3b5c;border-color:#3d5687;white-space:nowrap}
+button.danger{color:var(--danger)}
+button.icon{padding:2px 6px;line-height:1;background:transparent;border-color:transparent;color:var(--muted)}
+button.icon:hover{color:var(--text);border-color:var(--line)}
+select,input[type=text],input[type=password],input[type=number]{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);background:#12151b;position:sticky;top:0;z-index:5}
+h1{font-family:Cinzel,serif;font-size:20px;margin:0;color:var(--gold);letter-spacing:.5px}
+.spacer{flex:1}
+.status{color:var(--muted);font-size:12px}
+.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:5px}
+.status.offline .dot{background:var(--danger)}
+.mode{font-size:12px;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.mode.edit{color:var(--ok);border-color:#2f6b40}
+main{display:grid;grid-template-columns:340px repeat(3,minmax(280px,1fr));gap:12px;padding:12px 16px;height:calc(100vh - 56px)}
+.col{background:var(--panel);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;min-height:0}
+.col.drop{outline:2px dashed var(--accent);outline-offset:-2px}
+.colhead{padding:10px 12px;border-bottom:1px solid var(--line)}
+.colbody{overflow:auto;padding:6px 8px 12px;flex:1}
+.row{display:flex;align-items:center;gap:6px}
+.ttl{font-family:Cinzel,serif;font-weight:700;font-size:16px}
+.small{font-size:12px;color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.filters input[type=text]{flex:1;min-width:120px}
+.chipbtn{font-size:12px;padding:3px 8px;border-radius:999px}
+.chipbtn.on{background:#2a3b5c;border-color:#3d5687}
+.clshead{margin:10px 4px 4px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.6px;display:flex;gap:6px;align-items:center}
+.ch{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:6px;border:1px solid transparent}
+.ch:hover{background:var(--panel2);border-color:var(--line)}
+.ch[draggable=true]{cursor:grab}
+.ch.placed{opacity:.45}
+.name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.specs{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.badge{font-size:10px;padding:1px 5px;border-radius:4px;border:1px solid var(--line);color:var(--muted);flex:none}
+.badge.alt{color:#c9a6ff;border-color:#4b3a6b}
+.badge.where{color:var(--gold);border-color:#5b4b23}
+.badge.warn{color:#ffb35c;border-color:#6b4a23}
+.ico{width:18px;height:18px;border-radius:3px;flex:none;border:1px solid #000;box-shadow:0 0 0 1px #3a3f4b}
+.ico.cls{width:20px;height:20px;border-radius:50%}
+.specicons{display:flex;gap:2px;flex:none}
+.clshead .ico.cls{width:18px;height:18px}
+.role{width:8px;height:8px;border-radius:2px;flex:none}
+.role.tank{background:var(--tank)}.role.heal{background:var(--heal)}.role.dps{background:var(--dps)}
+.quick{display:flex;gap:2px;flex:none}
+.quick button{padding:1px 6px;font-size:11px}
+.counts{display:flex;gap:10px;font-size:12px;margin-top:6px;flex-wrap:wrap}
+.counts b{font-weight:700}
+.bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:8px;background:var(--panel2)}
+.clsgrid{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;font-size:11px;color:var(--muted)}
+.clsgrid span b{font-weight:700}
+.leader{margin-top:6px;font-size:13px}
+.leader .crown{color:var(--gold)}
+.slot{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:6px;border:1px solid transparent}
+.slot:hover{background:var(--panel2);border-color:var(--line)}
+.slot.isleader{background:#2a2414;border-color:#5b4b23}
+.slot select{padding:1px 4px;font-size:12px;max-width:120px}
+.slot select.specsel{max-width:130px}
+.slot .crownbtn{color:#555b66}
+.slot .crownbtn.on{color:var(--gold)}
+.rolehead{margin:10px 4px 2px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:24px 8px;font-size:13px}
+.ro .editonly{display:none!important}
+dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:0;width:min(560px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+.dlg{padding:16px}
+.dlg h2{margin:0 0 12px;font-family:Cinzel,serif;font-size:18px;color:var(--gold)}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.field label{font-size:12px;color:var(--muted)}
+.charrow{border:1px solid var(--line);border-radius:8px;padding:8px;margin-bottom:8px;background:var(--panel2)}
+.spectoggles{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.spectoggles button{font-size:12px;padding:3px 8px}
+.spectoggles button.on{background:#2a3b5c;border-color:#3d5687}
+.dlgfoot{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line)}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#2b1e1e;border:1px solid #6b2f2f;color:#ffd0cc;padding:8px 14px;border-radius:8px;display:none;z-index:50;max-width:90vw}
+#toast.info{background:#1e2b22;border-color:#2f6b40;color:#d4f5dc}
+@media (max-width:1300px){main{grid-template-columns:320px 1fr 1fr;height:auto}.col{max-height:80vh}}
+@media (max-width:900px){main{grid-template-columns:1fr;padding:12px 16px}.col{max-height:none}.colbody{max-height:70vh}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Hysteria Forever · Raid Roster</h1>
+  <span id="status" class="status"><span class="dot"></span><span id="statustxt">Loading…</span></span>
+</header>
+<main id="main">
+  <section class="col" id="bench" data-drop="bench">
+    <div class="colhead">
+      <div class="row"><span class="ttl">Players</span><span id="benchCount" class="small"></span><span class="spacer"></span><button id="addPlayerBtn" class="primary">+ Add player</button></div>
+      <div class="filters">
+        <input type="text" id="search" placeholder="Search name…">
+        <select id="clsFilter"><option value="">All classes</option></select>
+      </div>
+      <div class="filters">
+        <button class="chipbtn on" data-kind="all">All</button>
+        <button class="chipbtn" data-kind="main">Mains</button>
+        <button class="chipbtn" data-kind="alt">Alts</button>
+        <span class="spacer"></span>
+        <label class="small"><input type="checkbox" id="hidePlaced" checked> Hide placed</label>
+      </div>
+    </div>
+    <div class="colbody" id="benchList"></div>
+  </section>
+</main>
+
+<dialog id="playerDlg">
+  <form method="dialog" id="playerForm">
+    <div class="dlg">
+      <h2 id="playerDlgTitle">Player</h2>
+      <div class="field"><label for="pName">Name</label><input type="text" id="pName" maxlength="40" required></div>
+      <div class="field"><label for="pNote">Note (optional)</label><input type="text" id="pNote" maxlength="200" placeholder="e.g. officer, raid times, gear notes"></div>
+      <div class="field"><label>Classes &amp; specs <span class="small">(first selected spec = default)</span></label><div id="pChars"></div>
+        <button type="button" id="addCharBtn">+ Add class</button></div>
+    </div>
+    <div class="dlgfoot">
+      <button type="button" id="deletePlayerBtn" class="danger">Delete player</button>
+      <span class="spacer"></span>
+      <button type="button" id="cancelPlayerBtn">Cancel</button>
+      <button type="submit" class="primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast"></div>
+
+<script>
+const ROLE = {
+  Warrior:{Protection:"tank"}, Paladin:{Protection:"tank",Holy:"heal"}, Druid:{"Feral (Tank)":"tank",Restoration:"heal"},
+  Priest:{Holy:"heal",Discipline:"heal"}, Shaman:{Restoration:"heal"}
+};
+const roleOf = (cls, spec) => (ROLE[cls] && ROLE[cls][spec]) || "dps";
+const ROLE_ORDER = {tank:0, heal:1, dps:2};
+const ROLE_LABEL = {tank:"Tanks", heal:"Healers", dps:"DPS"};
+const SHORT = {"Protection":"Prot","Arms":"Arms","Fury":"Fury","Affliction":"Affli","Destruction":"Destro","Demonology":"Demo",
+  "Arcane":"Arcane","Fire":"Fire","Frost":"Frost","Shadow":"Shadow","Holy":"Holy","Discipline":"Disc","Feral (Tank)":"Bear",
+  "Feral (DPS)":"Cat","Balance":"Boomkin","Restoration":"Resto","Elemental":"Ele","Enhancement":"Enh","Retribution":"Ret",
+  "Combat":"Combat","Assassination":"Assa","Subtlety":"Sub","Marksmanship":"MM","Beast Mastery":"BM","Survival":"Surv"};
+
+// Icons are hot-linked from Wowhead's image CDN (same art as in-game); a missing icon just hides itself.
+const ICON_URL = n => `https://wow.zamimg.com/images/wow/icons/medium/${n}.jpg`;
+const SPEC_ICON = {
+  Warrior:{Protection:"ability_warrior_defensivestance", Arms:"ability_warrior_savageblow", Fury:"ability_warrior_innerrage"},
+  Warlock:{Affliction:"spell_shadow_deathcoil", Destruction:"spell_shadow_rainoffire", Demonology:"spell_shadow_metamorphosis"},
+  Mage:{Arcane:"spell_holy_magicalsentry", Fire:"spell_fire_firebolt02", Frost:"spell_frost_frostbolt02"},
+  Priest:{Shadow:"spell_shadow_shadowwordpain", Holy:"spell_holy_holybolt", Discipline:"spell_holy_wordfortitude"},
+  Druid:{"Feral (Tank)":"ability_racial_bearform", "Feral (DPS)":"ability_druid_catform", Balance:"spell_nature_starfall", Restoration:"spell_nature_healingtouch"},
+  Shaman:{Elemental:"spell_nature_lightning", Enhancement:"spell_nature_lightningshield", Restoration:"spell_nature_magicimmunity"},
+  Paladin:{Protection:"spell_holy_devotionaura", Retribution:"spell_holy_auraoflight", Holy:"spell_holy_holybolt"},
+  Rogue:{Combat:"ability_backstab", Assassination:"ability_rogue_eviscerate", Subtlety:"ability_stealth"},
+  Hunter:{Marksmanship:"ability_marksmanship", "Beast Mastery":"ability_hunter_beasttaming", Survival:"ability_hunter_swiftstrike"},
+};
+const icon = (name, title, cls = "") => el("img", {class:"ico " + cls, src:ICON_URL(name), alt:"", title, loading:"lazy",
+  referrerpolicy:"no-referrer", onerror: e => e.target.style.display = "none"});
+const classIcon = cls => icon("classicon_" + cls.toLowerCase(), cls, "cls");
+const specIcon = (cls, spec) => SPEC_ICON[cls] && SPEC_ICON[cls][spec] ? icon(SPEC_ICON[cls][spec], `${spec} ${cls}`) : null;
+
+let S = null, CLASSES = {}, VERSION = null, pendingRender = false;
+let filt = {q:"", cls:"", kind:"all", hidePlaced:true};
+
+const $ = s => document.querySelector(s);
+const el = (tag, attrs={}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v;
+    else if (k === "style") n.style.cssText = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()) if (c != null && c !== false) n.append(c.nodeType ? c : document.createTextNode(c));
+  return n;
+};
+
+function toast(msg, info) {
+  const t = $("#toast"); t.textContent = msg; t.className = info ? "info" : ""; t.style.display = "block";
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.style.display = "none", 3500);
+}
+
+// ---------- server ----------
+// ngrok-skip-browser-warning keeps ngrok's interstitial page from replacing our JSON responses
+const H = {"Content-Type":"application/json", "ngrok-skip-browser-warning":"1"};
+async function fetchState(force, wait) {
+  try {
+    const qs = !force && VERSION != null ? "?since=" + VERSION + (wait ? "&wait=1" : "") : "";
+    const r = await fetch("api/state" + qs, {cache:"no-store", headers:H});
+    const d = await r.json();
+    setOnline(true);
+    if (!d.unchanged) accept(d);
+    return true;
+  } catch (e) { setOnline(false); return false; }
+}
+// Live updates via long-polling: the server answers as soon as anything changes (or after 25s).
+// Hidden or idle tabs stop polling so a forgotten tab doesn't burn through ngrok's free request quota.
+const IDLE_MS = 15 * 60 * 1000;
+let lastActive = Date.now(), wake = null;
+const paused = () => document.hidden || Date.now() - lastActive > IDLE_MS;
+function poke() {
+  lastActive = Date.now();
+  if (wake && !document.hidden) { wake(); wake = null; }
+}
+["mousemove","keydown","click","scroll","touchstart"].forEach(ev => addEventListener(ev, poke, {passive:true}));
+document.addEventListener("visibilitychange", poke);
+async function pollLoop() {
+  for (;;) {
+    if (paused()) {
+      $("#statustxt").textContent = `Paused (${document.hidden ? "tab hidden" : "idle"}) · v${VERSION}`;
+      await new Promise(r => wake = r);
+      await fetchState(false, false);
+      continue;
+    }
+    if (!await fetchState(false, true)) await new Promise(r => setTimeout(r, 5000));
+  }
+}
+function accept(d) {
+  S = d.state; CLASSES = d.classes || CLASSES; VERSION = d.version;
+  requestRender();
+}
+function setOnline(ok) {
+  $("#status").classList.toggle("offline", !ok);
+  $("#statustxt").textContent = ok ? `Synced · v${VERSION ?? "–"}` : "Offline – retrying";
+}
+async function op(body) {
+  try {
+    const r = await fetch("api/op", {method:"POST", headers:H, body:JSON.stringify(body)});
+    const d = await r.json();
+    if (!r.ok) {
+      toast(d.error || "Something went wrong");
+      await fetchState(true);
+      return false;
+    }
+    accept(d); setOnline(true);
+    return true;
+  } catch (e) { setOnline(false); toast("Could not reach the server"); return false; }
+}
+const canEdit = () => true; // open editing: anyone with the link can change the roster
+
+// ---------- lookups ----------
+const player = pid => S.players.find(p => p.id === pid);
+const charOf = (p, cid) => p && p.chars.find(c => c.id === cid);
+function placement() {
+  const m = new Map();
+  for (const g of S.groups) for (const s of g.slots) m.set(s.pid + "|" + s.cid, {g, s});
+  return m;
+}
+
+// ---------- render ----------
+function requestRender() {
+  const a = document.activeElement;
+  if (a && a.tagName === "SELECT" && a.closest("main")) { pendingRender = true; return; }
+  if (document.querySelector("dialog[open]")) { pendingRender = true; return; }
+  pendingRender = false; render();
+}
+document.addEventListener("focusout", () => setTimeout(() => { if (pendingRender) requestRender(); }, 0));
+
+function render() {
+  if (!S) return;
+  renderClassFilter();
+  renderBench();
+  renderGroups();
+  setOnline(true);
+}
+
+function renderClassFilter() {
+  const sel = $("#clsFilter");
+  if (sel.options.length > 1) return;
+  for (const c of Object.keys(CLASSES)) sel.append(el("option", {value:c, style:`color:var(--${c})`}, c));
+}
+
+function dragData(e, obj) { e.dataTransfer.setData("text/plain", JSON.stringify(obj)); e.dataTransfer.effectAllowed = "move"; }
+
+function renderBench() {
+  const list = $("#benchList"), top = list.scrollTop; list.replaceChildren();
+  requestAnimationFrame(() => list.scrollTop = top);
+  const pl = placement(); const q = filt.q.toLowerCase();
+  let shown = 0, total = 0;
+  for (const cls of Object.keys(CLASSES)) {
+    if (filt.cls && filt.cls !== cls) continue;
+    const rows = [];
+    for (const p of S.players) for (const c of p.chars) {
+      if (c.cls !== cls) continue;
+      total++;
+      if (filt.kind !== "all" && c.kind !== filt.kind) continue;
+      if (q && !p.name.toLowerCase().includes(q)) continue;
+      const where = pl.get(p.id + "|" + c.id);
+      if (where && filt.hidePlaced) continue;
+      rows.push({p, c, where});
+    }
+    if (!rows.length) continue;
+    rows.sort((a,b) => (a.c.kind === b.c.kind ? 0 : a.c.kind === "main" ? -1 : 1) || a.p.name.localeCompare(b.p.name));
+    shown += rows.length;
+    list.append(el("div", {class:"clshead", style:`color:var(--${cls})`}, classIcon(cls), cls, el("span", {class:"small"}, String(rows.length))));
+    for (const {p, c, where} of rows) {
+      const role = roleOf(c.cls, c.specs[0]);
+      const others = p.chars.filter(x => x.id !== c.id).map(x => x.cls);
+      const item = el("div", {class:"ch" + (where ? " placed" : ""), draggable: canEdit() && !where ? "true" : false,
+          title: (p.note ? p.note + "\n" : "") + (others.length ? "Also plays: " + others.join(", ") : ""),
+          ondragstart: e => dragData(e, {t:"char", pid:p.id, cid:c.id})},
+        el("span", {class:"role " + role, title: ROLE_LABEL[role]}),
+        classIcon(c.cls),
+        el("span", {class:"name", style:`color:var(--${c.cls})`}, p.name),
+        c.kind === "alt" ? el("span", {class:"badge alt"}, "alt") : null,
+        el("span", {class:"specicons"}, c.specs.map(s => specIcon(c.cls, s))),
+        el("span", {class:"specs"}, c.specs.map(s => SHORT[s] || s).join(" / ")),
+        where ? el("span", {class:"badge where"}, where.g.name) : null,
+        !where ? el("span", {class:"quick editonly"}, S.groups.map((g, i) =>
+          el("button", {title:"Add to " + g.name, onclick: () => op({op:"assign", pid:p.id, cid:c.id, gid:g.id})}, String(i + 1)))) : null,
+        el("button", {class:"icon editonly", title:"Edit player", onclick: () => openPlayer(p)}, "✎"));
+      list.append(item);
+    }
+  }
+  if (!shown) list.append(el("div", {class:"empty"}, total ? "No characters match these filters." : "No players yet."));
+  $("#benchCount").textContent = `${S.players.length} players · ${shown} shown`;
+}
+
+function renderGroups() {
+  const main = $("#main"), scroll = {};
+  main.querySelectorAll(".col.grp").forEach(n => { scroll[n.dataset.drop] = n.querySelector(".colbody").scrollTop; n.remove(); });
+  for (const g of S.groups) {
+    const col = renderGroup(g);
+    main.append(col);
+    col.querySelector(".colbody").scrollTop = scroll[g.id] || 0;
+  }
+}
+
+function renderGroup(g) {
+  const slots = g.slots.map(s => { const p = player(s.pid); return {s, p, c: charOf(p, s.cid)}; }).filter(x => x.p && x.c);
+  const counts = {tank:0, heal:0, dps:0}, byCls = {};
+  const perPlayer = {};
+  for (const x of slots) {
+    counts[roleOf(x.c.cls, x.s.spec)]++;
+    byCls[x.c.cls] = (byCls[x.c.cls] || 0) + 1;
+    perPlayer[x.p.id] = (perPlayer[x.p.id] || 0) + 1;
+  }
+  const leader = g.leader && player(g.leader);
+  const bar = el("div", {class:"bar"}, Object.keys(CLASSES).filter(c => byCls[c]).map(c =>
+    el("div", {style:`background:var(--${c});width:${100 * byCls[c] / g.size}%`, title:`${c}: ${byCls[c]}`})));
+
+  const head = el("div", {class:"colhead"},
+    el("div", {class:"row"},
+      el("span", {class:"ttl"}, g.name),
+      el("button", {class:"icon editonly", title:"Rename / size", onclick: () => editGroup(g)}, "✎"),
+      el("span", {class:"spacer"}),
+      el("span", {class:"small"}, `${slots.length}/${g.size}`),
+      el("button", {class:"icon", title:"Copy roster as text (for Discord)", onclick: () => copyGroup(g)}, "⧉")),
+    el("div", {class:"leader"}, el("span", {class:"crown"}, "♛ "), "Raid leader: ",
+      leader ? el("b", {style:`color:var(--${(slots.find(x => x.p.id === leader.id) || {c:{cls:"Priest"}}).c.cls})`}, leader.name)
+             : el("span", {class:"small"}, "not set — click ♛ on a member")),
+    el("div", {class:"counts"},
+      el("span", {style:"color:var(--tank)"}, "Tanks ", el("b", {}, String(counts.tank))),
+      el("span", {style:"color:var(--heal)"}, "Healers ", el("b", {}, String(counts.heal))),
+      el("span", {style:"color:var(--dps)"}, "DPS ", el("b", {}, String(counts.dps)))),
+    bar,
+    el("div", {class:"clsgrid"}, Object.keys(CLASSES).map(c =>
+      el("span", {style: byCls[c] ? "" : "opacity:.4"}, el("b", {style:`color:var(--${c})`}, c), " " + (byCls[c] || 0)))));
+
+  const body = el("div", {class:"colbody"});
+  if (!slots.length) body.append(el("div", {class:"empty"}, canEdit() ? "Drag players here, or use the 1 / 2 / 3 buttons in the list." : "No one assigned yet."));
+  for (const role of ["tank", "heal", "dps"]) {
+    const rs = slots.filter(x => roleOf(x.c.cls, x.s.spec) === role)
+      .sort((a,b) => a.c.cls.localeCompare(b.c.cls) || a.p.name.localeCompare(b.p.name));
+    if (!rs.length) continue;
+    body.append(el("div", {class:"rolehead"}, `${ROLE_LABEL[role]} (${rs.length})`));
+    for (const x of rs) body.append(renderSlot(g, x, perPlayer[x.p.id] > 1));
+  }
+  if (canEdit() && slots.length) body.append(el("div", {style:"text-align:center;margin-top:12px"},
+    el("button", {class:"danger", onclick: () => confirm(`Remove everyone from ${g.name}?`) && op({op:"clearGroup", gid:g.id})}, "Clear group")));
+
+  const col = el("section", {class:"col grp", "data-drop": g.id}, head, body);
+  wireDrop(col);
+  return col;
+}
+
+function renderSlot(g, {s, p, c}, dup) {
+  const isLeader = g.leader === p.id;
+  const edit = canEdit();
+  // Class + spec this player brings to this raid: any class/spec; ★ = listed on the player's profile
+  const known = (cls, sp) => p.chars.some(x => x.cls === cls && x.specs.includes(sp));
+  const spec = edit
+    ? el("select", {class:"specsel", title:"Class / spec for this raid (★ = on the player's profile)", onchange: e => {
+          e.target.blur(); const [cls, sp] = e.target.value.split("|"); op({op:"setSpec", sid:s.id, cls, spec:sp}); }},
+        Object.keys(CLASSES).map(cls => el("optgroup", {label:cls},
+          CLASSES[cls].map(sp => el("option", {value:cls + "|" + sp, selected: cls === c.cls && sp === s.spec},
+            (known(cls, sp) ? "★ " : "") + (cls === c.cls ? sp : `${sp} ${cls}`))))))
+    : el("span", {class:"specs", style:"flex:none"}, s.spec);
+  const move = el("select", {class:"editonly", title:"Move to…", style:"width:28px", onchange: e => {
+      const v = e.target.value; e.target.blur(); if (!v) return;
+      v === "bench" ? op({op:"unassign", sid:s.id}) : op({op:"move", sid:s.id, gid:v}); }},
+    el("option", {value:""}, "⇄"),
+    S.groups.filter(o => o.id !== g.id).map(o => el("option", {value:o.id}, "→ " + o.name)),
+    el("option", {value:"bench"}, "→ Remove from raid"));
+  return el("div", {class:"slot" + (isLeader ? " isleader" : ""), draggable: edit ? "true" : false,
+      title: p.note || "", ondragstart: e => dragData(e, {t:"slot", sid:s.id})},
+    edit ? el("button", {class:"icon crownbtn" + (isLeader ? " on" : ""), title: isLeader ? "Unset raid leader" : "Make raid leader",
+             onclick: () => op({op:"setLeader", gid:g.id, pid: isLeader ? null : p.id})}, "♛")
+         : (isLeader ? el("span", {class:"crownbtn on", style:"color:var(--gold)"}, "♛") : null),
+    el("span", {class:"role " + roleOf(c.cls, s.spec)}),
+    classIcon(c.cls), specIcon(c.cls, s.spec),
+    el("span", {class:"name", style:`color:var(--${c.cls})`}, p.name),
+    c.kind === "alt" ? el("span", {class:"badge alt"}, "alt") : null,
+    dup ? el("span", {class:"badge warn", title:"This player has more than one character in this raid"}, "2×") : null,
+    el("span", {class:"spacer"}),
+    spec, move,
+    el("button", {class:"icon editonly", title:"Remove from raid", onclick: () => op({op:"unassign", sid:s.id})}, "✕"));
+}
+
+function wireDrop(col) {
+  col.addEventListener("dragover", e => { if (!canEdit()) return; e.preventDefault(); col.classList.add("drop"); });
+  col.addEventListener("dragleave", e => { if (!col.contains(e.relatedTarget)) col.classList.remove("drop"); });
+  col.addEventListener("drop", e => {
+    e.preventDefault(); col.classList.remove("drop");
+    let d; try { d = JSON.parse(e.dataTransfer.getData("text/plain")); } catch(_) { return; }
+    const target = col.dataset.drop;
+    if (target === "bench") { if (d.t === "slot") op({op:"unassign", sid:d.sid}); return; }
+    if (d.t === "char") op({op:"assign", pid:d.pid, cid:d.cid, gid:target});
+    else if (d.t === "slot") op({op:"move", sid:d.sid, gid:target});
+  });
+}
+wireDrop($("#bench"));
+
+function copyGroup(g) {
+  const lines = [`**${g.name}** (${g.slots.length}/${g.size})` + (g.leader && player(g.leader) ? ` — Raid leader: ${player(g.leader).name}` : "")];
+  for (const role of ["tank", "heal", "dps"]) {
+    const rs = g.slots.map(s => { const p = player(s.pid); return {s, p, c: charOf(p, s.cid)}; })
+      .filter(x => x.c && roleOf(x.c.cls, x.s.spec) === role)
+      .sort((a,b) => a.c.cls.localeCompare(b.c.cls) || a.p.name.localeCompare(b.p.name));
+    if (rs.length) lines.push(`${ROLE_LABEL[role]} (${rs.length}): ` + rs.map(x => `${x.p.name} (${SHORT[x.s.spec] || x.s.spec} ${x.c.cls})`).join(", "));
+  }
+  const text = lines.join("\n");
+  (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject())
+    .then(() => toast("Copied " + g.name + " to clipboard", true))
+    .catch(() => prompt("Copy this:", text));
+}
+
+async function editGroup(g) {
+  const name = prompt("Group name:", g.name); if (name == null) return;
+  const size = prompt("Max size (1-40):", g.size); if (size == null) return;
+  await op({op:"updateGroup", gid:g.id, name, size:Number(size)});
+}
+
+// ---------- player dialog ----------
+let editing = null; // {pid|null, chars:[...]}
+function openPlayer(p) {
+  editing = {pid: p ? p.id : null, chars: p ? p.chars.map(c => ({...c, specs:[...c.specs]})) : [{cls:"Warrior", specs:[], kind:"main"}]};
+  $("#playerDlgTitle").textContent = p ? "Edit player" : "Add player";
+  $("#pName").value = p ? p.name : "";
+  $("#pNote").value = p ? (p.note || "") : "";
+  $("#deletePlayerBtn").style.display = p ? "" : "none";
+  renderChars();
+  $("#playerDlg").showModal();
+  $("#pName").focus();
+}
+function renderChars() {
+  const box = $("#pChars"); box.replaceChildren();
+  editing.chars.forEach((c, i) => {
+    const used = new Set(editing.chars.filter((_, j) => j !== i).map(x => x.cls));
+    box.append(el("div", {class:"charrow"},
+      el("div", {class:"row"},
+        el("select", {onchange: e => { c.cls = e.target.value; c.specs = []; delete c.id; renderChars(); }},
+          Object.keys(CLASSES).filter(k => k === c.cls || !used.has(k)).map(k => el("option", {value:k, selected:k === c.cls}, k))),
+        el("select", {onchange: e => c.kind = e.target.value},
+          el("option", {value:"main", selected:c.kind === "main"}, "Main"),
+          el("option", {value:"alt", selected:c.kind === "alt"}, "Alt")),
+        el("span", {class:"spacer"}),
+        el("button", {type:"button", class:"icon", title:"Remove this class", onclick: () => { editing.chars.splice(i, 1); renderChars(); }}, "✕")),
+      el("div", {class:"spectoggles"}, CLASSES[c.cls].map(sp => {
+        const idx = c.specs.indexOf(sp);
+        return el("button", {type:"button", class: idx >= 0 ? "on" : "", onclick: () => {
+          idx >= 0 ? c.specs.splice(idx, 1) : c.specs.push(sp); renderChars(); }},
+          (idx >= 0 ? (idx + 1) + ". " : "") + sp);
+      }))));
+  });
+  $("#addCharBtn").style.display = editing.chars.length >= Object.keys(CLASSES).length ? "none" : "";
+}
+$("#addCharBtn").onclick = () => {
+  const used = new Set(editing.chars.map(c => c.cls));
+  const cls = Object.keys(CLASSES).find(k => !used.has(k));
+  editing.chars.push({cls, specs:[], kind: editing.chars.length ? "alt" : "main"}); renderChars();
+};
+$("#playerForm").onsubmit = async e => {
+  e.preventDefault();
+  const body = {name: $("#pName").value, note: $("#pNote").value, chars: editing.chars};
+  const ok = await op(editing.pid ? {op:"updatePlayer", pid:editing.pid, ...body} : {op:"addPlayer", ...body});
+  if (ok) closeDlg("#playerDlg");
+};
+$("#cancelPlayerBtn").onclick = () => closeDlg("#playerDlg");
+$("#deletePlayerBtn").onclick = async () => {
+  const p = player(editing.pid);
+  if (p && confirm(`Delete ${p.name} and remove them from every raid?`) && await op({op:"deletePlayer", pid:p.id})) closeDlg("#playerDlg");
+};
+function closeDlg(sel) { $(sel).close(); }
+document.querySelectorAll("dialog").forEach(d => d.addEventListener("close", () => requestRender()));
+$("#addPlayerBtn").onclick = () => openPlayer(null);
+
+// ---------- filters ----------
+$("#search").oninput = e => { filt.q = e.target.value; renderBench(); };
+$("#clsFilter").onchange = e => { filt.cls = e.target.value; renderBench(); };
+$("#hidePlaced").onchange = e => { filt.hidePlaced = e.target.checked; renderBench(); };
+document.querySelectorAll("[data-kind]").forEach(b => b.onclick = () => {
+  filt.kind = b.dataset.kind;
+  document.querySelectorAll("[data-kind]").forEach(x => x.classList.toggle("on", x === b));
+  renderBench();
+});
+
+// ---------- boot ----------
+(async () => {
+  try { localStorage.removeItem("rosterKey"); } catch(e) {} // leftover from the old password lock
+  await fetchState(true);
+  pollLoop();
+})();
+</script>
+</body>
+</html>
