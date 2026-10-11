@@ -1,28 +1,28 @@
 # Hysteria Forever – Raid Roster
 
-## Start
+Live roster: **https://mkmarkov.github.io/hysteria-tools/**
+
+A static page on GitHub Pages (`docs/`) that stores the roster in Firebase Firestore.
+Anyone with the link can view and edit; changes appear on everyone's screen instantly.
+
+## Files
+- `docs/index.html` – the app (UI)
+- `docs/ops.js` – roster rules (assign, move, leaders, specs…); every change runs in a Firestore transaction
+- `docs/firebase-config.js` – Firebase web config (public by design)
+- `docs/seed.json` – starting roster, used only if the Firestore document doesn't exist yet
+- `firestore.rules` – security rules (paste into Firebase console → Firestore → Rules → Publish)
+
+## Data & backups
+- Roster: Firestore document `rosters/main` (`version`, `state`).
+- The previous 50 versions: `rosters/main/backups/0..49` (slot = version % 50).
+  To restore one, open the page, press F12 and run in the console:
+  `rosterAdmin.importState(<state object from the backup>)`
+
+## Local testing
 ```
-python server.py
+python -m http.server 8790 --directory docs
 ```
-Open http://localhost:8787
+Open http://localhost:8790 (uses the same live Firestore data).
 
-Anyone with the link can view and edit (no password). Every change is backed up in `data/backups/`.
-
-## Share with ngrok
-Quickest: double-click `start.bat` (starts the server + ngrok; the public link is on the "Forwarding" line).
-
-Manual steps:
-1. Sign up at https://ngrok.com and install ngrok.
-2. `ngrok config add-authtoken <your token>` (one time)
-3. `ngrok http 8787`
-4. Send people the `https://….ngrok-free.dev` URL.
-
-Notes: your PC and `server.py` must stay running. The free URL changes each time you restart ngrok unless
-you use your free static domain: `ngrok http --url=<your-domain>.ngrok-free.app 8787`.
-Visitors see a one-time ngrok warning page – click "Visit Site".
-Free ngrok allows ~20,000 requests/month. Open pages long-poll (about 2–3 requests/minute) and stop
-completely when the tab is hidden or idle for 15 minutes, so normal use stays well inside that.
-
-## Data
-- `data/roster.json` – everything (players, groups). Edit by hand only while the server is stopped.
-- `data/backups/` – the last 50 versions, one per change. Copy one over `roster.json` to roll back.
+## Old version
+`server.py`, `start.bat`, `index.html` and `data/` are the earlier self-hosted version (Python + ngrok). No longer used.

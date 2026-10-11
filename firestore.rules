@@ -1,0 +1,29 @@
+rules_version = '2';
+// Raid roster: anyone with the link can read and edit the single roster document.
+// Paste into Firebase console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /rosters/main {
+      allow read: if true;
+      // first write creates version 1; every later write must be exactly the next version,
+      // so a stale page can never overwrite newer changes
+      allow create: if request.resource.data.keys().hasOnly(['version', 'state', 'updatedAt'])
+                    && request.resource.data.version == 1;
+      allow update: if request.resource.data.keys().hasOnly(['version', 'state', 'updatedAt'])
+                    && request.resource.data.version == resource.data.version + 1;
+      allow delete: if false;
+
+      // rolling backups of the previous 50 versions
+      match /backups/{slot} {
+        allow read: if true;
+        allow create, update: if slot.matches('^[0-9]{1,2}$')
+                    && request.resource.data.keys().hasOnly(['version', 'state', 'savedAt']);
+        allow delete: if false;
+      }
+    }
+    // everything else is closed
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
