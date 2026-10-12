@@ -6,6 +6,9 @@
 <title>Hysteria Raid Roster</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+<!-- Wowhead tooltips: hovering a buff icon (a link to Wowhead) shows the in-game spell tooltip -->
+<script>const whTooltips = {colorLinks: false, iconizeLinks: false, renameLinks: false};</script>
+<script src="https://wow.zamimg.com/js/tooltips.js"></script>
 <style>
 :root{
   --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2b303b; --text:#e6e6e6; --muted:#8b93a3;
@@ -84,6 +87,7 @@ main{display:grid;grid-template-columns:340px repeat(3,minmax(280px,1fr));gap:12
 .buffcap{margin:6px 0 3px}
 .buffrow{display:flex;flex-wrap:wrap;gap:3px}
 .buff{position:relative;display:inline-flex}
+.buffinfo{margin-top:6px;min-height:16px}
 .buff .ico{width:22px;height:22px}
 .buff.missing .ico{filter:grayscale(1);opacity:.3}
 .buff i{position:absolute;right:-3px;bottom:-3px;font-style:normal;font-size:9px;font-weight:700;background:#000;border-radius:3px;padding:0 2px;line-height:12px}
@@ -384,54 +388,61 @@ function renderGroups() {
 
 // Classic (level 60) raid buffs and debuffs and who provides them. "Class" = any spec of that class,
 // "Class:Spec" = needs that talent spec (judged by the spec chosen for the raid slot).
+// id = Classic spell id (max rank) for the Wowhead tooltip shown on hover.
 const BUFFS = [
-  {n:"Battle Shout", i:"ability_warrior_battleshout", by:["Warrior"]},
-  {n:"Power Word: Fortitude", i:"spell_holy_wordfortitude", by:["Priest"]},
-  {n:"Divine Spirit", i:"spell_holy_divinespirit", by:["Priest:Discipline"]},
-  {n:"Shadow Protection", i:"spell_shadow_antishadow", by:["Priest"]},
-  {n:"Arcane Intellect", i:"spell_holy_magicalsentry", by:["Mage"]},
-  {n:"Mark of the Wild", i:"spell_nature_regeneration", by:["Druid"]},
-  {n:"Leader of the Pack", i:"spell_nature_unyeildingstamina", by:["Druid:Feral (Tank)", "Druid:Feral (DPS)"]},
-  {n:"Moonkin Aura", i:"spell_nature_forceofnature", by:["Druid:Balance"]},
-  {n:"Trueshot Aura", i:"ability_trueshot", by:["Hunter:Marksmanship"]},
-  {n:"Blessing of Kings", i:"spell_magic_magearmor", by:["Paladin:Protection"]},
-  {n:"Blessing of Might", i:"spell_holy_fistofjustice", by:["Paladin"]},
-  {n:"Blessing of Wisdom", i:"spell_holy_sealofwisdom", by:["Paladin"]},
-  {n:"Blessing of Salvation", i:"spell_holy_sealofsalvation", by:["Paladin"]},
-  {n:"Sanctity Aura", i:"spell_holy_mindvision", by:["Paladin:Retribution"]},
-  {n:"Windfury Totem", i:"spell_nature_windfury", by:["Shaman"]},
-  {n:"Strength of Earth Totem", i:"spell_nature_earthbindtotem", by:["Shaman"]},
-  {n:"Grace of Air Totem", i:"spell_nature_invisibilitytotem", by:["Shaman"]},
-  {n:"Mana Spring Totem", i:"spell_nature_manaregentotem", by:["Shaman"]},
-  {n:"Mana Tide Totem", i:"spell_frost_summonwaterelemental", by:["Shaman:Restoration"]},
-  {n:"Blood Pact", i:"spell_shadow_bloodboil", by:["Warlock"]},
-  {n:"Healthstones & Soulstones", i:"inv_stone_04", by:["Warlock"]},
+  {n:"Battle Shout", id:25289, i:"ability_warrior_battleshout", by:["Warrior"]},
+  {n:"Power Word: Fortitude", id:10938, i:"spell_holy_wordfortitude", by:["Priest"]},
+  {n:"Divine Spirit", id:27841, i:"spell_holy_divinespirit", by:["Priest:Discipline"]},
+  {n:"Shadow Protection", id:10958, i:"spell_shadow_antishadow", by:["Priest"]},
+  {n:"Arcane Intellect", id:10157, i:"spell_holy_magicalsentry", by:["Mage"]},
+  {n:"Mark of the Wild", id:9885, i:"spell_nature_regeneration", by:["Druid"]},
+  {n:"Leader of the Pack", id:17007, i:"spell_nature_unyeildingstamina", by:["Druid:Feral (Tank)", "Druid:Feral (DPS)"]},
+  {n:"Moonkin Aura", id:24907, i:"spell_nature_moonglow", by:["Druid:Balance"]},
+  {n:"Trueshot Aura", id:20906, i:"ability_trueshot", by:["Hunter:Marksmanship"]},
+  {n:"Blessing of Kings", id:20217, i:"spell_magic_magearmor", by:["Paladin:Protection"]},
+  {n:"Blessing of Might", id:25291, i:"spell_holy_fistofjustice", by:["Paladin"]},
+  {n:"Blessing of Wisdom", id:25290, i:"spell_holy_sealofwisdom", by:["Paladin"]},
+  {n:"Blessing of Salvation", id:1038, i:"spell_holy_sealofsalvation", by:["Paladin"]},
+  {n:"Sanctity Aura", id:20218, i:"spell_holy_mindvision", by:["Paladin:Retribution"]},
+  {n:"Windfury Totem", id:10614, i:"spell_nature_windfury", by:["Shaman"]},
+  {n:"Strength of Earth Totem", id:25361, i:"spell_nature_earthbindtotem", by:["Shaman"]},
+  {n:"Grace of Air Totem", id:25359, i:"spell_nature_invisibilitytotem", by:["Shaman"]},
+  {n:"Mana Spring Totem", id:10497, i:"spell_nature_manaregentotem", by:["Shaman"]},
+  {n:"Mana Tide Totem", id:17359, i:"spell_frost_summonwaterelemental", by:["Shaman:Restoration"]},
+  {n:"Blood Pact", id:11767, i:"spell_shadow_bloodboil", by:["Warlock"]},
+  {n:"Healthstone", id:11730, i:"inv_stone_04", by:["Warlock"]},
+  {n:"Soulstone", id:20765, i:"spell_shadow_soulgem", by:["Warlock"]},
 ];
 const DEBUFFS = [
-  {n:"Sunder Armor", i:"ability_warrior_sunder", by:["Warrior"]},
-  {n:"Expose Armor", i:"ability_warrior_riposte", by:["Rogue"]},
-  {n:"Faerie Fire", i:"spell_nature_faeriefire", by:["Druid"]},
-  {n:"Curse of Recklessness", i:"spell_shadow_unholystrength", by:["Warlock"]},
-  {n:"Curse of the Elements", i:"spell_shadow_chilltouch", by:["Warlock"]},
-  {n:"Curse of Shadow", i:"spell_shadow_curseofachimonde", by:["Warlock"]},
-  {n:"Improved Shadow Bolt", i:"spell_shadow_shadowbolt", by:["Warlock:Destruction"]},
-  {n:"Shadow Weaving", i:"spell_shadow_blackplague", by:["Priest:Shadow"]},
-  {n:"Fire Vulnerability (Imp. Scorch)", i:"spell_fire_soulburn", by:["Mage:Fire"]},
-  {n:"Winter's Chill", i:"spell_frost_chillingblast", by:["Mage:Frost"]},
-  {n:"Judgements (Wisdom / Light / Crusader)", i:"spell_holy_righteousnessaura", by:["Paladin"]},
-  {n:"Hunter's Mark", i:"ability_hunter_snipershot", by:["Hunter"]},
-  {n:"Demoralizing Shout", i:"ability_warrior_warcry", by:["Warrior"]},
-  {n:"Thunder Clap", i:"spell_nature_thunderclap", by:["Warrior"]},
+  {n:"Sunder Armor", id:11597, i:"ability_warrior_sunder", by:["Warrior"]},
+  {n:"Expose Armor", id:11198, i:"ability_warrior_riposte", by:["Rogue"]},
+  {n:"Faerie Fire", id:9907, i:"spell_nature_faeriefire", by:["Druid"]},
+  {n:"Curse of Recklessness", id:11717, i:"spell_shadow_unholystrength", by:["Warlock"]},
+  {n:"Curse of the Elements", id:11722, i:"spell_shadow_chilltouch", by:["Warlock"]},
+  {n:"Curse of Shadow", id:17937, i:"spell_shadow_curseofachimonde", by:["Warlock"]},
+  {n:"Improved Shadow Bolt", id:17800, i:"spell_shadow_shadowbolt", by:["Warlock:Destruction"]},
+  {n:"Shadow Weaving", id:15334, i:"spell_shadow_blackplague", by:["Priest:Shadow"]},
+  {n:"Fire Vulnerability (Imp. Scorch)", id:22959, i:"spell_fire_soulburn", by:["Mage:Fire"]},
+  {n:"Winter's Chill", id:12579, i:"spell_frost_chillingblast", by:["Mage:Frost"]},
+  {n:"Judgement of Wisdom", id:20355, i:"spell_holy_righteousnessaura", by:["Paladin"]},
+  {n:"Hunter's Mark", id:14325, i:"ability_hunter_snipershot", by:["Hunter"]},
+  {n:"Demoralizing Shout", id:11556, i:"ability_warrior_warcry", by:["Warrior"]},
+  {n:"Thunder Clap", id:11581, i:"spell_nature_thunderclap", by:["Warrior"]},
 ];
 const provides = (b, x) => b.by.some(k => k === x.c.cls || k === x.c.cls + ":" + x.s.spec);
 const providerText = by => by.map(k => k.replace(":", " – ")).join(" or ");
 const buffsOpen = {}; // per group: is the buff list expanded (kept across re-renders)
+const BUFF_HINT = "Hover an icon for its tooltip and who provides it";
 
 function renderBuffs(g, active) {
+  const info = el("div", {class:"small buffinfo"}, BUFF_HINT);
   const row = list => el("div", {class:"buffrow"}, list.map(b => {
     const who = active.filter(x => provides(b, x)).map(x => x.p.name);
-    return el("span", {class:"buff" + (who.length ? "" : " missing"),
-        title: `${b.n}\n` + (who.length ? `From: ${who.join(", ")}` : `Missing – needs ${providerText(b.by)}`)},
+    const line = who.length ? `${b.n} — from ${who.join(", ")}` : `${b.n} — missing, needs ${providerText(b.by)}`;
+    // Wowhead's tooltip script (loaded in <head>) shows the in-game tooltip for these links
+    return el("a", {class:"buff" + (who.length ? "" : " missing"), href:`https://www.wowhead.com/classic/spell=${b.id}`,
+        "data-wowhead":`spell=${b.id}&domain=classic`, target:"_blank", rel:"noopener",
+        onmouseenter: () => info.textContent = line, onmouseleave: () => info.textContent = BUFF_HINT},
       icon(b.i, ""), who.length > 1 ? el("i", {}, String(who.length)) : null);
   }));
   const have = list => list.filter(b => active.some(x => provides(b, x))).length;
@@ -439,7 +450,8 @@ function renderBuffs(g, active) {
     el("summary", {}, `Buffs ${have(BUFFS)}/${BUFFS.length} · Debuffs ${have(DEBUFFS)}/${DEBUFFS.length}`,
       el("span", {class:"small"}, " (bench not counted)")),
     el("div", {class:"small buffcap"}, "Buffs"), row(BUFFS),
-    el("div", {class:"small buffcap"}, "Debuffs"), row(DEBUFFS));
+    el("div", {class:"small buffcap"}, "Debuffs"), row(DEBUFFS),
+    info);
   det.addEventListener("toggle", () => buffsOpen[g.id] = det.open);
   return det;
 }
