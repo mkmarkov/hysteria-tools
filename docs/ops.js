@@ -11,6 +11,7 @@ export const CLASSES = {
   Paladin: ["Protection", "Retribution", "Holy"],
   Rogue: ["Combat", "Assassination", "Subtlety"],
   Hunter: ["Marksmanship", "Beast Mastery", "Survival"],
+  Unknown: ["Unknown"], // shown as "?": placeholder until the player's class is known
 };
 
 export class OpError extends Error {}
@@ -82,8 +83,13 @@ function assertFree(st, pid, cid) {
   for (const g of st.groups) for (const s of g.slots)
     if (s.pid === pid && s.cid === cid) throw new OpError(`That character is already in ${g.name}`);
 }
+// Group size limits only the active raid; the bench/rotation list (slot.bench) is unlimited
+const activeCount = g => g.slots.filter(s => !s.bench).length;
 function assertRoom(g) {
-  if (g.slots.length >= g.size) throw new OpError(`${g.name} is full (${g.size})`);
+  if (activeCount(g) >= g.size) throw new OpError(`${g.name} is full (${g.size})`);
+}
+function setBenchFlag(s, bench) {
+  if (bench) s.bench = true; else delete s.bench;
 }
 
 export function applyOp(st, op) {
@@ -120,17 +126,22 @@ export function applyOp(st, op) {
       const c = findChar(p, op.cid);
       const g = findGroup(st, op.gid);
       assertFree(st, p.id, c.id);
-      assertRoom(g);
+      if (!op.bench) assertRoom(g);
       const spec = c.specs.includes(op.spec) ? op.spec : c.specs[0];
-      g.slots.push({id: newId(st, "s"), pid: p.id, cid: c.id, spec});
+      const s = {id: newId(st, "s"), pid: p.id, cid: c.id, spec};
+      setBenchFlag(s, op.bench);
+      g.slots.push(s);
       break;
     }
     case "move": {
+      // to another group and/or between that group's raid and bench (op.bench)
       const [src, s] = findSlot(st, op.sid);
       const dst = findGroup(st, op.gid);
-      if (src === dst) return;
-      assertRoom(dst);
+      const bench = !!op.bench;
+      if (src === dst && !!s.bench === bench) return;
+      if (!bench) assertRoom(dst);
       src.slots.splice(src.slots.indexOf(s), 1);
+      setBenchFlag(s, bench);
       dst.slots.push(s);
       dropOrphanSlots(st);
       break;
@@ -149,8 +160,13 @@ export function applyOp(st, op) {
       const cls = op.cls || findChar(p, s.cid).cls;
       const spec = op.spec;
       if (!has(CLASSES, cls) || !CLASSES[cls].includes(spec)) throw new OpError("Unknown class/spec");
+      const cur = findChar(p, s.cid);
       let c = p.chars.find(c => c.cls === cls);
-      if (!c) {
+      if (!c && cur.cls === "Unknown") {
+        // resolving a "?" placeholder: turn it into the real class instead of adding an alt
+        cur.cls = cls; cur.specs = [];
+        c = cur;
+      } else if (!c) {
         c = {id: newId(st, p.id + "-c"), cls, specs: [], kind: "alt"};
         p.chars.push(c);
       } else if (c.id !== s.cid) {
@@ -158,6 +174,8 @@ export function applyOp(st, op) {
       }
       if (!c.specs.includes(spec)) c.specs.push(spec);
       s.cid = c.id; s.spec = spec;
+      // a "?" placeholder left behind (player switched to a class they already had) is dropped
+      if (cur !== c && cur.cls === "Unknown") p.chars.splice(p.chars.indexOf(cur), 1);
       break;
     }
     case "setLeader": {
@@ -177,8 +195,8 @@ export function applyOp(st, op) {
       if (has(op, "name")) g.name = cleanName(op.name);
       if (has(op, "size")) {
         const size = Number(op.size);
-        if (!Number.isInteger(size) || size < g.slots.length || size < 1 || size > 40)
-          throw new OpError(`Size must be between ${Math.max(1, g.slots.length)} and 40`);
+        if (!Number.isInteger(size) || size < activeCount(g) || size < 1 || size > 40)
+          throw new OpError(`Size must be between ${Math.max(1, activeCount(g))} and 40`);
         g.size = size;
       }
       break;

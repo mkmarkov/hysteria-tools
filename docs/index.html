@@ -12,7 +12,7 @@
   --gold:#e8c46a; --danger:#e5605b; --ok:#5fbf77; --accent:#6aa6ff;
   --tank:#7aa7ff; --heal:#6fd38a; --dps:#ef7b6b;
   --Warrior:#C69B6D; --Warlock:#8788EE; --Mage:#3FC7EB; --Priest:#FFFFFF; --Druid:#FF7C0A;
-  --Shaman:#0070DD; --Paladin:#F48CBA; --Rogue:#FFF468; --Hunter:#AAD372;
+  --Shaman:#0070DD; --Paladin:#F48CBA; --Rogue:#FFF468; --Hunter:#AAD372; --Unknown:#a3a9b5;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -60,7 +60,7 @@ main{display:grid;grid-template-columns:340px repeat(3,minmax(280px,1fr));gap:12
 .specicons{display:flex;gap:2px;flex:none}
 .clshead .ico.cls{width:18px;height:18px}
 .role{width:8px;height:8px;border-radius:2px;flex:none}
-.role.tank{background:var(--tank)}.role.heal{background:var(--heal)}.role.dps{background:var(--dps)}
+.role.tank{background:var(--tank)}.role.heal{background:var(--heal)}.role.dps{background:var(--dps)}.role.unknown{background:var(--Unknown)}
 .quick{display:flex;gap:2px;flex:none}
 .quick button{padding:1px 6px;font-size:11px}
 .counts{display:flex;gap:10px;font-size:12px;margin-top:6px;flex-wrap:wrap}
@@ -78,6 +78,19 @@ main{display:grid;grid-template-columns:340px repeat(3,minmax(280px,1fr));gap:12
 .slot .crownbtn{color:#555b66}
 .slot .crownbtn.on{color:var(--gold)}
 .rolehead{margin:10px 4px 2px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.buffs{margin-top:8px;font-size:12px}
+.buffs summary{cursor:pointer;color:var(--muted)}
+.buffs summary:hover{color:var(--text)}
+.buffcap{margin:6px 0 3px}
+.buffrow{display:flex;flex-wrap:wrap;gap:3px}
+.buff{position:relative;display:inline-flex}
+.buff .ico{width:22px;height:22px}
+.buff.missing .ico{filter:grayscale(1);opacity:.3}
+.buff i{position:absolute;right:-3px;bottom:-3px;font-style:normal;font-size:9px;font-weight:700;background:#000;border-radius:3px;padding:0 2px;line-height:12px}
+.benchzone{margin-top:14px;border:1px dashed var(--line);border-radius:8px;padding:2px 4px 6px;min-height:60px}
+.benchzone.drop{border-color:var(--accent);background:rgba(106,166,255,.06)}
+.benchhint{text-align:center;padding:10px 0}
+.slot.benched .name{opacity:.75}
 .empty{color:var(--muted);text-align:center;padding:24px 8px;font-size:13px}
 .ro .editonly{display:none!important}
 dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:0;width:min(560px,calc(100vw - 32px))}
@@ -140,6 +153,13 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
   </form>
 </dialog>
 
+<dialog id="confirmDlg">
+  <form method="dialog">
+    <div class="dlg"><h2 id="confirmTitle"></h2><p id="confirmMsg" style="margin:0"></p></div>
+    <div class="dlgfoot"><button value="cancel" autofocus>Cancel</button><button value="ok" id="confirmOk" class="danger"></button></div>
+  </form>
+</dialog>
+
 <div id="toast"></div>
 
 <script type="module">
@@ -152,13 +172,16 @@ const ROLE = {
   Warrior:{Protection:"tank"}, Paladin:{Protection:"tank",Holy:"heal"}, Druid:{"Feral (Tank)":"tank",Restoration:"heal"},
   Priest:{Holy:"heal",Discipline:"heal"}, Shaman:{Restoration:"heal"}
 };
-const roleOf = (cls, spec) => (ROLE[cls] && ROLE[cls][spec]) || "dps";
-const ROLE_ORDER = {tank:0, heal:1, dps:2};
-const ROLE_LABEL = {tank:"Tanks", heal:"Healers", dps:"DPS"};
+const roleOf = (cls, spec) => cls === "Unknown" ? "unknown" : (ROLE[cls] && ROLE[cls][spec]) || "dps";
+const ROLES = ["tank", "heal", "dps", "unknown"];
+const ROLE_LABEL = {tank:"Tanks", heal:"Healers", dps:"DPS", unknown:"Class unknown"};
+// "Unknown" is the "?" placeholder class for players whose class isn't known yet
+const clsLabel = cls => cls === "Unknown" ? "?" : cls;
+const specLabel = sp => sp === "Unknown" ? "?" : sp;
 const SHORT = {"Protection":"Prot","Arms":"Arms","Fury":"Fury","Affliction":"Affli","Destruction":"Destro","Demonology":"Demo",
   "Arcane":"Arcane","Fire":"Fire","Frost":"Frost","Shadow":"Shadow","Holy":"Holy","Discipline":"Disc","Feral (Tank)":"Bear",
   "Feral (DPS)":"Cat","Balance":"Boomkin","Restoration":"Resto","Elemental":"Ele","Enhancement":"Enh","Retribution":"Ret",
-  "Combat":"Combat","Assassination":"Assa","Subtlety":"Sub","Marksmanship":"MM","Beast Mastery":"BM","Survival":"Surv"};
+  "Combat":"Combat","Assassination":"Assa","Subtlety":"Sub","Marksmanship":"MM","Beast Mastery":"BM","Survival":"Surv","Unknown":"?"};
 
 // Icons are hot-linked from Wowhead's image CDN (same art as in-game); a missing icon just hides itself.
 const ICON_URL = n => `https://wow.zamimg.com/images/wow/icons/medium/${n}.jpg`;
@@ -172,10 +195,11 @@ const SPEC_ICON = {
   Paladin:{Protection:"spell_holy_devotionaura", Retribution:"spell_holy_auraoflight", Holy:"spell_holy_holybolt"},
   Rogue:{Combat:"ability_backstab", Assassination:"ability_rogue_eviscerate", Subtlety:"ability_stealth"},
   Hunter:{Marksmanship:"ability_marksmanship", "Beast Mastery":"ability_hunter_beasttaming", Survival:"ability_hunter_swiftstrike"},
+  Unknown:{Unknown:"inv_misc_questionmark"},
 };
 const icon = (name, title, cls = "") => el("img", {class:"ico " + cls, src:ICON_URL(name), alt:"", title, loading:"lazy",
   referrerpolicy:"no-referrer", onerror: e => e.target.style.display = "none"});
-const classIcon = cls => icon("classicon_" + cls.toLowerCase(), cls, "cls");
+const classIcon = cls => icon(cls === "Unknown" ? "inv_misc_questionmark" : "classicon_" + cls.toLowerCase(), cls === "Unknown" ? "Class unknown" : cls, "cls");
 const specIcon = (cls, spec) => SPEC_ICON[cls] && SPEC_ICON[cls][spec] ? icon(SPEC_ICON[cls][spec], `${spec} ${cls}`) : null;
 
 let S = null, VERSION = null, pendingRender = false;
@@ -299,7 +323,7 @@ function render() {
 function renderClassFilter() {
   const sel = $("#clsFilter");
   if (sel.options.length > 1) return;
-  for (const c of Object.keys(CLASSES)) sel.append(el("option", {value:c, style:`color:var(--${c})`}, c));
+  for (const c of Object.keys(CLASSES)) sel.append(el("option", {value:c, style:`color:var(--${c})`}, c === "Unknown" ? "? (class unknown)" : c));
 }
 
 function dragData(e, obj) { e.dataTransfer.setData("text/plain", JSON.stringify(obj)); e.dataTransfer.effectAllowed = "move"; }
@@ -324,7 +348,7 @@ function renderBench() {
     if (!rows.length) continue;
     rows.sort((a,b) => (a.c.kind === b.c.kind ? 0 : a.c.kind === "main" ? -1 : 1) || a.p.name.localeCompare(b.p.name));
     shown += rows.length;
-    list.append(el("div", {class:"clshead", style:`color:var(--${cls})`}, classIcon(cls), cls, el("span", {class:"small"}, String(rows.length))));
+    list.append(el("div", {class:"clshead", style:`color:var(--${cls})`}, classIcon(cls), cls === "Unknown" ? "? Class unknown" : cls, el("span", {class:"small"}, String(rows.length))));
     for (const {p, c, where} of rows) {
       const role = roleOf(c.cls, c.specs[0]);
       const others = p.chars.filter(x => x.id !== c.id).map(x => x.cls);
@@ -358,48 +382,123 @@ function renderGroups() {
   }
 }
 
+// Classic (level 60) raid buffs and debuffs and who provides them. "Class" = any spec of that class,
+// "Class:Spec" = needs that talent spec (judged by the spec chosen for the raid slot).
+const BUFFS = [
+  {n:"Battle Shout", i:"ability_warrior_battleshout", by:["Warrior"]},
+  {n:"Power Word: Fortitude", i:"spell_holy_wordfortitude", by:["Priest"]},
+  {n:"Divine Spirit", i:"spell_holy_divinespirit", by:["Priest:Discipline"]},
+  {n:"Shadow Protection", i:"spell_shadow_antishadow", by:["Priest"]},
+  {n:"Arcane Intellect", i:"spell_holy_magicalsentry", by:["Mage"]},
+  {n:"Mark of the Wild", i:"spell_nature_regeneration", by:["Druid"]},
+  {n:"Leader of the Pack", i:"spell_nature_unyeildingstamina", by:["Druid:Feral (Tank)", "Druid:Feral (DPS)"]},
+  {n:"Moonkin Aura", i:"spell_nature_forceofnature", by:["Druid:Balance"]},
+  {n:"Trueshot Aura", i:"ability_trueshot", by:["Hunter:Marksmanship"]},
+  {n:"Blessing of Kings", i:"spell_magic_magearmor", by:["Paladin:Protection"]},
+  {n:"Blessing of Might", i:"spell_holy_fistofjustice", by:["Paladin"]},
+  {n:"Blessing of Wisdom", i:"spell_holy_sealofwisdom", by:["Paladin"]},
+  {n:"Blessing of Salvation", i:"spell_holy_sealofsalvation", by:["Paladin"]},
+  {n:"Sanctity Aura", i:"spell_holy_mindvision", by:["Paladin:Retribution"]},
+  {n:"Windfury Totem", i:"spell_nature_windfury", by:["Shaman"]},
+  {n:"Strength of Earth Totem", i:"spell_nature_earthbindtotem", by:["Shaman"]},
+  {n:"Grace of Air Totem", i:"spell_nature_invisibilitytotem", by:["Shaman"]},
+  {n:"Mana Spring Totem", i:"spell_nature_manaregentotem", by:["Shaman"]},
+  {n:"Mana Tide Totem", i:"spell_frost_summonwaterelemental", by:["Shaman:Restoration"]},
+  {n:"Blood Pact", i:"spell_shadow_bloodboil", by:["Warlock"]},
+  {n:"Healthstones & Soulstones", i:"inv_stone_04", by:["Warlock"]},
+];
+const DEBUFFS = [
+  {n:"Sunder Armor", i:"ability_warrior_sunder", by:["Warrior"]},
+  {n:"Expose Armor", i:"ability_warrior_riposte", by:["Rogue"]},
+  {n:"Faerie Fire", i:"spell_nature_faeriefire", by:["Druid"]},
+  {n:"Curse of Recklessness", i:"spell_shadow_unholystrength", by:["Warlock"]},
+  {n:"Curse of the Elements", i:"spell_shadow_chilltouch", by:["Warlock"]},
+  {n:"Curse of Shadow", i:"spell_shadow_curseofachimonde", by:["Warlock"]},
+  {n:"Improved Shadow Bolt", i:"spell_shadow_shadowbolt", by:["Warlock:Destruction"]},
+  {n:"Shadow Weaving", i:"spell_shadow_blackplague", by:["Priest:Shadow"]},
+  {n:"Fire Vulnerability (Imp. Scorch)", i:"spell_fire_soulburn", by:["Mage:Fire"]},
+  {n:"Winter's Chill", i:"spell_frost_chillingblast", by:["Mage:Frost"]},
+  {n:"Judgements (Wisdom / Light / Crusader)", i:"spell_holy_righteousnessaura", by:["Paladin"]},
+  {n:"Hunter's Mark", i:"ability_hunter_snipershot", by:["Hunter"]},
+  {n:"Demoralizing Shout", i:"ability_warrior_warcry", by:["Warrior"]},
+  {n:"Thunder Clap", i:"spell_nature_thunderclap", by:["Warrior"]},
+];
+const provides = (b, x) => b.by.some(k => k === x.c.cls || k === x.c.cls + ":" + x.s.spec);
+const providerText = by => by.map(k => k.replace(":", " – ")).join(" or ");
+const buffsOpen = {}; // per group: is the buff list expanded (kept across re-renders)
+
+function renderBuffs(g, active) {
+  const row = list => el("div", {class:"buffrow"}, list.map(b => {
+    const who = active.filter(x => provides(b, x)).map(x => x.p.name);
+    return el("span", {class:"buff" + (who.length ? "" : " missing"),
+        title: `${b.n}\n` + (who.length ? `From: ${who.join(", ")}` : `Missing – needs ${providerText(b.by)}`)},
+      icon(b.i, ""), who.length > 1 ? el("i", {}, String(who.length)) : null);
+  }));
+  const have = list => list.filter(b => active.some(x => provides(b, x))).length;
+  const det = el("details", {class:"buffs", open: !!buffsOpen[g.id]},
+    el("summary", {}, `Buffs ${have(BUFFS)}/${BUFFS.length} · Debuffs ${have(DEBUFFS)}/${DEBUFFS.length}`,
+      el("span", {class:"small"}, " (bench not counted)")),
+    el("div", {class:"small buffcap"}, "Buffs"), row(BUFFS),
+    el("div", {class:"small buffcap"}, "Debuffs"), row(DEBUFFS));
+  det.addEventListener("toggle", () => buffsOpen[g.id] = det.open);
+  return det;
+}
+
 function renderGroup(g) {
-  const slots = g.slots.map(s => { const p = player(s.pid); return {s, p, c: charOf(p, s.cid)}; }).filter(x => x.p && x.c);
-  const counts = {tank:0, heal:0, dps:0}, byCls = {};
+  const all = g.slots.map(s => { const p = player(s.pid); return {s, p, c: charOf(p, s.cid)}; }).filter(x => x.p && x.c);
+  const active = all.filter(x => !x.s.bench), benched = all.filter(x => x.s.bench);
+  const counts = {tank:0, heal:0, dps:0, unknown:0}, byCls = {};
   const perPlayer = {};
-  for (const x of slots) {
+  for (const x of active) {
     counts[roleOf(x.c.cls, x.s.spec)]++;
     byCls[x.c.cls] = (byCls[x.c.cls] || 0) + 1;
-    perPlayer[x.p.id] = (perPlayer[x.p.id] || 0) + 1;
   }
+  for (const x of all) perPlayer[x.p.id] = (perPlayer[x.p.id] || 0) + 1;
   const leader = g.leader && player(g.leader);
+  const leaderX = leader && all.find(x => x.p.id === leader.id);
   const bar = el("div", {class:"bar"}, Object.keys(CLASSES).filter(c => byCls[c]).map(c =>
-    el("div", {style:`background:var(--${c});width:${100 * byCls[c] / g.size}%`, title:`${c}: ${byCls[c]}`})));
+    el("div", {style:`background:var(--${c});width:${100 * byCls[c] / g.size}%`, title:`${clsLabel(c)}: ${byCls[c]}`})));
 
   const head = el("div", {class:"colhead"},
     el("div", {class:"row"},
       el("span", {class:"ttl"}, g.name),
       el("button", {class:"icon editonly", title:"Rename / size", onclick: () => editGroup(g)}, "✎"),
       el("span", {class:"spacer"}),
-      el("span", {class:"small"}, `${slots.length}/${g.size}`),
+      el("span", {class:"small", title:"In raid / max size, plus bench"}, `${active.length}/${g.size}` + (benched.length ? ` · ${benched.length} bench` : "")),
       el("button", {class:"icon", title:"Copy roster as text (for Discord)", onclick: () => copyGroup(g)}, "⧉")),
     el("div", {class:"leader"}, el("span", {class:"crown"}, "♛ "), "Raid leader: ",
-      leader ? el("b", {style:`color:var(--${(slots.find(x => x.p.id === leader.id) || {c:{cls:"Priest"}}).c.cls})`}, leader.name)
+      leader ? el("b", {style:`color:var(--${leaderX ? leaderX.c.cls : "Priest"})`}, leader.name)
              : el("span", {class:"small"}, "not set — click ♛ on a member")),
     el("div", {class:"counts"},
       el("span", {style:"color:var(--tank)"}, "Tanks ", el("b", {}, String(counts.tank))),
       el("span", {style:"color:var(--heal)"}, "Healers ", el("b", {}, String(counts.heal))),
-      el("span", {style:"color:var(--dps)"}, "DPS ", el("b", {}, String(counts.dps)))),
+      el("span", {style:"color:var(--dps)"}, "DPS ", el("b", {}, String(counts.dps))),
+      counts.unknown ? el("span", {style:"color:var(--Unknown)"}, "? ", el("b", {}, String(counts.unknown))) : null),
     bar,
-    el("div", {class:"clsgrid"}, Object.keys(CLASSES).map(c =>
-      el("span", {style: byCls[c] ? "" : "opacity:.4"}, el("b", {style:`color:var(--${c})`}, c), " " + (byCls[c] || 0)))));
+    el("div", {class:"clsgrid"}, Object.keys(CLASSES).filter(c => c !== "Unknown" || byCls[c]).map(c =>
+      el("span", {style: byCls[c] ? "" : "opacity:.4"}, el("b", {style:`color:var(--${c})`}, clsLabel(c)), " " + (byCls[c] || 0)))),
+    renderBuffs(g, active));
 
   const body = el("div", {class:"colbody"});
-  if (!slots.length) body.append(el("div", {class:"empty"}, canEdit() ? "Drag players here, or use the 1 / 2 / 3 buttons in the list." : "No one assigned yet."));
-  for (const role of ["tank", "heal", "dps"]) {
-    const rs = slots.filter(x => roleOf(x.c.cls, x.s.spec) === role)
-      .sort((a,b) => a.c.cls.localeCompare(b.c.cls) || a.p.name.localeCompare(b.p.name));
+  if (!active.length) body.append(el("div", {class:"empty"}, "Drag players here, or use the 1 / 2 / 3 buttons in the list."));
+  const byClsName = (a, b) => a.c.cls.localeCompare(b.c.cls) || a.p.name.localeCompare(b.p.name);
+  for (const role of ROLES) {
+    const rs = active.filter(x => roleOf(x.c.cls, x.s.spec) === role).sort(byClsName);
     if (!rs.length) continue;
     body.append(el("div", {class:"rolehead"}, `${ROLE_LABEL[role]} (${rs.length})`));
     for (const x of rs) body.append(renderSlot(g, x, perPlayer[x.p.id] > 1));
   }
-  if (canEdit() && slots.length) body.append(el("div", {style:"text-align:center;margin-top:12px"},
-    el("button", {class:"danger", onclick: () => confirm(`Remove everyone from ${g.name}?`) && op({op:"clearGroup", gid:g.id})}, "Clear group")));
+  // Bench / rotation: in the group but not in the raid; not counted in size, roles or buffs
+  body.append(el("div", {class:"benchzone"},
+    el("div", {class:"rolehead"}, `Bench / rotation (${benched.length})`),
+    benched.length ? benched.sort(byClsName).map(x => renderSlot(g, x, perPlayer[x.p.id] > 1))
+                   : el("div", {class:"small benchhint"}, "Drag players here for bench / rotation")));
+  if (all.length) body.append(el("div", {style:"text-align:center;margin-top:12px"},
+    el("button", {class:"danger", onclick: async () => {
+      if (await askConfirm(`Clear ${g.name}?`,
+          `This removes all ${all.length} players (raid and bench) from ${g.name} and unsets its raid leader. They go back to the Players list.`,
+          "Clear group")) op({op:"clearGroup", gid:g.id});
+    }}, "Clear group")));
 
   const col = el("section", {class:"col grp", "data-drop": g.id}, head, body);
   wireDrop(col);
@@ -408,59 +507,61 @@ function renderGroup(g) {
 
 function renderSlot(g, {s, p, c}, dup) {
   const isLeader = g.leader === p.id;
-  const edit = canEdit();
   // Class + spec this player brings to this raid: any class/spec; ★ = listed on the player's profile
   const known = (cls, sp) => p.chars.some(x => x.cls === cls && x.specs.includes(sp));
-  const spec = edit
-    ? el("select", {class:"specsel", title:"Class / spec for this raid (★ = on the player's profile)", onchange: e => {
-          e.target.blur(); const [cls, sp] = e.target.value.split("|"); op({op:"setSpec", sid:s.id, cls, spec:sp}); }},
-        Object.keys(CLASSES).map(cls => el("optgroup", {label:cls},
-          CLASSES[cls].map(sp => el("option", {value:cls + "|" + sp, selected: cls === c.cls && sp === s.spec},
-            (known(cls, sp) ? "★ " : "") + (cls === c.cls ? sp : `${sp} ${cls}`))))))
-    : el("span", {class:"specs", style:"flex:none"}, s.spec);
-  const move = el("select", {class:"editonly", title:"Move to…", style:"width:28px", onchange: e => {
-      const v = e.target.value; e.target.blur(); if (!v) return;
-      v === "bench" ? op({op:"unassign", sid:s.id}) : op({op:"move", sid:s.id, gid:v}); }},
-    el("option", {value:""}, "⇄"),
-    S.groups.filter(o => o.id !== g.id).map(o => el("option", {value:o.id}, "→ " + o.name)),
-    el("option", {value:"bench"}, "→ Remove from raid"));
-  return el("div", {class:"slot" + (isLeader ? " isleader" : ""), draggable: edit ? "true" : false,
+  const spec = el("select", {class:"specsel", title:"Class / spec for this raid (★ = on the player's profile)", onchange: e => {
+        e.target.blur(); const [cls, sp] = e.target.value.split("|"); op({op:"setSpec", sid:s.id, cls, spec:sp}); }},
+      Object.keys(CLASSES).map(cls => el("optgroup", {label: cls === "Unknown" ? "? Class unknown" : cls},
+        CLASSES[cls].map(sp => el("option", {value:cls + "|" + sp, selected: cls === c.cls && sp === s.spec},
+          (known(cls, sp) ? "★ " : "") + (cls === "Unknown" ? "?" : cls === c.cls ? sp : `${sp} ${cls}`))))));
+  return el("div", {class:"slot" + (isLeader ? " isleader" : "") + (s.bench ? " benched" : ""), draggable:"true",
       title: p.note || "", ondragstart: e => dragData(e, {t:"slot", sid:s.id})},
-    edit ? el("button", {class:"icon crownbtn" + (isLeader ? " on" : ""), title: isLeader ? "Unset raid leader" : "Make raid leader",
-             onclick: () => op({op:"setLeader", gid:g.id, pid: isLeader ? null : p.id})}, "♛")
-         : (isLeader ? el("span", {class:"crownbtn on", style:"color:var(--gold)"}, "♛") : null),
+    el("button", {class:"icon crownbtn" + (isLeader ? " on" : ""), title: isLeader ? "Unset raid leader" : "Make raid leader",
+      onclick: () => op({op:"setLeader", gid:g.id, pid: isLeader ? null : p.id})}, "♛"),
     el("span", {class:"role " + roleOf(c.cls, s.spec)}),
     classIcon(c.cls), specIcon(c.cls, s.spec),
     el("span", {class:"name", style:`color:var(--${c.cls})`}, p.name),
     c.kind === "alt" ? el("span", {class:"badge alt"}, "alt") : null,
-    dup ? el("span", {class:"badge warn", title:"This player has more than one character in this raid"}, "2×") : null,
+    dup ? el("span", {class:"badge warn", title:"This player has more than one character in this group"}, "2×") : null,
     el("span", {class:"spacer"}),
-    spec, move,
-    el("button", {class:"icon editonly", title:"Remove from raid", onclick: () => op({op:"unassign", sid:s.id})}, "✕"));
+    spec,
+    el("button", {class:"icon", title: s.bench ? "Move into the raid" : "Move to bench / rotation",
+      onclick: () => op({op:"move", sid:s.id, gid:g.id, bench: !s.bench})}, s.bench ? "⇡" : "⇣"),
+    el("button", {class:"icon", title:"Remove from group", onclick: () => op({op:"unassign", sid:s.id})}, "✕"));
 }
 
 function wireDrop(col) {
-  col.addEventListener("dragover", e => { if (!canEdit()) return; e.preventDefault(); col.classList.add("drop"); });
-  col.addEventListener("dragleave", e => { if (!col.contains(e.relatedTarget)) col.classList.remove("drop"); });
+  const zoneOf = e => e.target.closest && e.target.closest(".benchzone");
+  col.addEventListener("dragover", e => {
+    e.preventDefault(); col.classList.add("drop");
+    col.querySelectorAll(".benchzone").forEach(z => z.classList.toggle("drop", z === zoneOf(e)));
+  });
+  col.addEventListener("dragleave", e => {
+    if (!col.contains(e.relatedTarget)) { col.classList.remove("drop"); col.querySelectorAll(".benchzone.drop").forEach(z => z.classList.remove("drop")); }
+  });
   col.addEventListener("drop", e => {
     e.preventDefault(); col.classList.remove("drop");
+    const bench = !!zoneOf(e);
     let d; try { d = JSON.parse(e.dataTransfer.getData("text/plain")); } catch(_) { return; }
     const target = col.dataset.drop;
     if (target === "bench") { if (d.t === "slot") op({op:"unassign", sid:d.sid}); return; }
-    if (d.t === "char") op({op:"assign", pid:d.pid, cid:d.cid, gid:target});
-    else if (d.t === "slot") op({op:"move", sid:d.sid, gid:target});
+    if (d.t === "char") op({op:"assign", pid:d.pid, cid:d.cid, gid:target, bench});
+    else if (d.t === "slot") op({op:"move", sid:d.sid, gid:target, bench});
   });
 }
 wireDrop($("#bench"));
 
 function copyGroup(g) {
-  const lines = [`**${g.name}** (${g.slots.length}/${g.size})` + (g.leader && player(g.leader) ? ` — Raid leader: ${player(g.leader).name}` : "")];
-  for (const role of ["tank", "heal", "dps"]) {
-    const rs = g.slots.map(s => { const p = player(s.pid); return {s, p, c: charOf(p, s.cid)}; })
-      .filter(x => x.c && roleOf(x.c.cls, x.s.spec) === role)
-      .sort((a,b) => a.c.cls.localeCompare(b.c.cls) || a.p.name.localeCompare(b.p.name));
-    if (rs.length) lines.push(`${ROLE_LABEL[role]} (${rs.length}): ` + rs.map(x => `${x.p.name} (${SHORT[x.s.spec] || x.s.spec} ${x.c.cls})`).join(", "));
+  const all = g.slots.map(s => { const p = player(s.pid); return {s, p, c: charOf(p, s.cid)}; }).filter(x => x.p && x.c);
+  const label = x => x.c.cls === "Unknown" ? `${x.p.name} (?)` : `${x.p.name} (${SHORT[x.s.spec] || x.s.spec} ${x.c.cls})`;
+  const sorted = xs => xs.sort((a,b) => a.c.cls.localeCompare(b.c.cls) || a.p.name.localeCompare(b.p.name));
+  const active = all.filter(x => !x.s.bench), benched = all.filter(x => x.s.bench);
+  const lines = [`**${g.name}** (${active.length}/${g.size})` + (g.leader && player(g.leader) ? ` — Raid leader: ${player(g.leader).name}` : "")];
+  for (const role of ROLES) {
+    const rs = sorted(active.filter(x => roleOf(x.c.cls, x.s.spec) === role));
+    if (rs.length) lines.push(`${ROLE_LABEL[role]} (${rs.length}): ` + rs.map(label).join(", "));
   }
+  if (benched.length) lines.push(`Bench / rotation (${benched.length}): ` + sorted(benched).map(label).join(", "));
   const text = lines.join("\n");
   (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject())
     .then(() => toast("Copied " + g.name + " to clipboard", true))
@@ -491,8 +592,8 @@ function renderChars() {
     const used = new Set(editing.chars.filter((_, j) => j !== i).map(x => x.cls));
     box.append(el("div", {class:"charrow"},
       el("div", {class:"row"},
-        el("select", {onchange: e => { c.cls = e.target.value; c.specs = []; delete c.id; renderChars(); }},
-          Object.keys(CLASSES).filter(k => k === c.cls || !used.has(k)).map(k => el("option", {value:k, selected:k === c.cls}, k))),
+        el("select", {onchange: e => { c.cls = e.target.value; c.specs = CLASSES[c.cls].length === 1 ? [...CLASSES[c.cls]] : []; delete c.id; renderChars(); }},
+          Object.keys(CLASSES).filter(k => k === c.cls || !used.has(k)).map(k => el("option", {value:k, selected:k === c.cls}, k === "Unknown" ? "? (class unknown)" : k))),
         el("select", {onchange: e => c.kind = e.target.value},
           el("option", {value:"main", selected:c.kind === "main"}, "Main"),
           el("option", {value:"alt", selected:c.kind === "alt"}, "Alt")),
@@ -502,7 +603,7 @@ function renderChars() {
         const idx = c.specs.indexOf(sp);
         return el("button", {type:"button", class: idx >= 0 ? "on" : "", onclick: () => {
           idx >= 0 ? c.specs.splice(idx, 1) : c.specs.push(sp); renderChars(); }},
-          (idx >= 0 ? (idx + 1) + ". " : "") + sp);
+          (idx >= 0 ? (idx + 1) + ". " : "") + specLabel(sp));
       }))));
   });
   $("#addCharBtn").style.display = editing.chars.length >= Object.keys(CLASSES).length ? "none" : "";
@@ -521,9 +622,17 @@ $("#playerForm").onsubmit = async e => {
 $("#cancelPlayerBtn").onclick = () => closeDlg("#playerDlg");
 $("#deletePlayerBtn").onclick = async () => {
   const p = player(editing.pid);
-  if (p && confirm(`Delete ${p.name} and remove them from every raid?`) && await op({op:"deletePlayer", pid:p.id})) closeDlg("#playerDlg");
+  if (p && await askConfirm(`Delete ${p.name}?`, `This deletes ${p.name} and all their classes, and removes them from every raid.`, "Delete player") && await op({op:"deletePlayer", pid:p.id})) closeDlg("#playerDlg");
 };
 function closeDlg(sel) { $(sel).close(); }
+// Styled confirmation; resolves true only when the red button is clicked
+function askConfirm(title, msg, okLabel) {
+  const d = $("#confirmDlg");
+  $("#confirmTitle").textContent = title; $("#confirmMsg").textContent = msg; $("#confirmOk").textContent = okLabel;
+  d.returnValue = "";
+  d.showModal();
+  return new Promise(res => d.addEventListener("close", () => res(d.returnValue === "ok"), {once:true}));
+}
 document.querySelectorAll("dialog").forEach(d => d.addEventListener("close", () => requestRender()));
 $("#addPlayerBtn").onclick = () => openPlayer(null);
 
